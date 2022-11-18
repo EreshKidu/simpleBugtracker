@@ -1,3 +1,56 @@
 <% layout('layouts/mainLayout') %> 
 
-<h1>PROJECTS HERE</h1>
+<h1 id="title">Projects</h1>
+<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewProject" aria-expanded="false" aria-controls="collapseNewProject" id="buttonNewProject">
+    Create new project
+  </button>
+
+<div class="card mb-3 collapse" id="collapseNewProject">
+    <div class="row">
+       <div class="col-md-6">
+            <div class="card-body">
+                <form action="/projects" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateProject">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title of new project</label>
+                        <input class="form-control" type="text" id="title" name="project[title]" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <input class="form-control" type="text"  id="description" name="project[description]" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success" id="buttonSaveProject">Save project</button>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cards">
+    <% for (let project of projects) { %> 
+        <div class="card mb-3" id="card">
+            <div class="row">
+            <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title"> <a href="/projects/<%= project._id %>"><%= project.title %></a> </h5>
+                        <p class="card-text"><%= project.description %></p>
+                        <p class="card-text">
+                            <small class="text-muted"><%= project.createdAt.toDateString() %></small>
+                        </p>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %> 
+</div>
+
+<script src="/js/createProject.js"></script>
