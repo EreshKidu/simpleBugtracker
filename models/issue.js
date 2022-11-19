@@ -15,6 +15,10 @@ const IssueSchema = new Schema( {
     priority: {
         type: String,
         enum: ['Low', 'Medium', 'High']
+    },
+    issueType: {
+        type: String,
+        enum: ['Bug/error', 'Enhancement']
     }
 
 });

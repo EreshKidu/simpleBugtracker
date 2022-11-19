@@ -12,6 +12,6 @@ router.route('/')
 
 router.route("/:id")
 .get(projects.showProject)
-.post(upload.none(),projects.createProject)
+.post(upload.none(),projects.createIssue)
 
 module.exports = router;

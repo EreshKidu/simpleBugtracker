@@ -22,7 +22,7 @@
                         <label class="form-label" for="status">Status</label>
                         <select class="form-select" aria-label="Status select" name="issue[status]">
                             <% for (let status of statuses) { %> 
-                            <option value="1"><%= status %> </option>
+                            <option value="<%= status %>"><%= status %> </option>
                             <% } %> 
 
                           </select>
@@ -33,7 +33,18 @@
                         <label class="form-label" for="status">Priority</label>
                         <select class="form-select" aria-label="priority select" name="issue[priority]">
                             <% for (let priority of priorities) { %> 
-                            <option value="1"><%= priority %> </option>
+                            <option value="<%= priority %>"><%= priority %> </option>
+                            <% } %> 
+
+                          </select>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="status">Type of issue</label>
+                        <select class="form-select" aria-label="issueType select" name="issue[issueType]">
+                            <% for (let issueType of issueTypes ) { %> 
+                            <option value="<%= issueType %>"><%= issueType %> </option>
                             <% } %> 
 
                           </select>
@@ -57,6 +68,7 @@ data-search="true">
         <th data-sortable="true">Creation date</th>
         <th data-sortable="true">Status </th>
         <th data-sortable="true">Priority </th>
+        <th data-sortable="true">Type </th>
         
       </tr>
     </thead>
@@ -69,6 +81,7 @@ data-search="true">
             <td><%= issue.createdAt.toDateString() %> </td>
             <td><%= issue.status %> </td>
             <td><%= issue.priority  %> </td>
+            <td><%= issue.issueType  %> </td>
         </tr>
             <% } %> 
        

@@ -12,7 +12,7 @@ module.exports.index = async (req, res) => {
 module.exports.createProject = async (req, res) => {
 
   
-  // console.log (req.body.project);
+  // console.log (req.body.project); 
   const newProject = new Project(req.body.project);
   await newProject.save();
   res.send (newProject);
@@ -25,8 +25,24 @@ module.exports.showProject = async (req, res) => {
   // console.log (req.body.project);
   const statuses = Issue.schema.path('status').enumValues;
   const priorities = Issue.schema.path('priority').enumValues;
+  const issueTypes = Issue.schema.path('issueType').enumValues;
 
   console.log (statuses, priorities);
 
-  res.render ("projects/show", {project, statuses,priorities });
+  res.render ("projects/show", {project, statuses,priorities,issueTypes });
+}
+
+
+module.exports.createIssue = async (req, res) => {
+
+  
+  // console.log (req.body.project);
+  const newIssue = new Issue(req.body.issue);
+  const project = await Project.findById(req.params.id)
+  await newIssue.save();
+  project.issues.push(newIssue);
+  await project.save();
+
+
+  res.send (newIssue);
 }
