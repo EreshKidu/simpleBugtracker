@@ -1,0 +1,84 @@
+<% layout('layouts/mainLayout') %> 
+
+
+<h1><%= project.title %> </h1>
+<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewIssue" aria-expanded="false" aria-controls="collapseNewIssue" id="buttonNewIssue">
+    Create new issue
+  </button>
+
+<div class="mb-3 collapse" id="collapseNewIssue">
+    <div class="row">
+       <div class="col-md-6">
+            <div class="card-body">
+                <form action="/projects/<%= project._id %>" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description of new issue</label>
+                        <textarea class="form-control" type="text" id="description" name="issue[description]" required>
+                            </textarea>
+
+                    </div>
+        
+                    <div class="mb-3">
+                        <label class="form-label" for="status">Status</label>
+                        <select class="form-select" aria-label="Status select" name="issue[status]">
+                            <% for (let status of statuses) { %> 
+                            <option value="1"><%= status %> </option>
+                            <% } %> 
+
+                          </select>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="status">Priority</label>
+                        <select class="form-select" aria-label="priority select" name="issue[priority]">
+                            <% for (let priority of priorities) { %> 
+                            <option value="1"><%= priority %> </option>
+                            <% } %> 
+
+                          </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success" id="buttonSaveissue">Save project</button>
+                    </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table data-toggle="table" data-pagination="true"
+data-search="true">
+    <thead>
+      <tr>
+        <th data-sortable="true">ID</th>
+        <th data-sortable="true">Description</th>
+        <th data-sortable="true">Creation date</th>
+        <th data-sortable="true">Status </th>
+        <th data-sortable="true">Priority </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      
+        <% for (let issue of project.issues) {%> 
+        <tr>
+            <td><%= issue._id %> </td>
+            <td><%= issue.description %></td>
+            <td><%= issue.createdAt.toDateString() %> </td>
+            <td><%= issue.status %> </td>
+            <td><%= issue.priority  %> </td>
+        </tr>
+            <% } %> 
+       
+    </tbody>
+  </table> 
+
+  <script>
+    
+    const project = <%- JSON.stringify(project)  %>;
+  
+  </script>
+
+  <script src="/js/createIssue.js"></script>

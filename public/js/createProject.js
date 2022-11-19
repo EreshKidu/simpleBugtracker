@@ -5,8 +5,13 @@ const formCreateProject = document.querySelector ("#formCreateProject");
 
 const drawProject = (res) => {
     
-    // close form for new project
+    // clear and close form for new project
     const buttonNewProject = document.querySelector ("#buttonNewProject");
+    const titleNewProject = document.querySelector ("#title");
+    const descriptionNewProject = document.querySelector ("#description");
+
+    titleNewProject.value = "";
+    descriptionNewProject.value = "";
     buttonNewProject.click();
 
     // Find first card and insert new project above that card
@@ -43,9 +48,6 @@ formCreateProject.addEventListener("submit", async function(e) {
     // Send data from form
     let res = await axios.post(`/projects`, project);
     
-    console.log ("!!!!!!!!!!!!!!!!!!!!!!!!!CATCH RESPONSE");
-    console.log (res.data);
-
     //draw new project from database
      drawProject (res);
     
