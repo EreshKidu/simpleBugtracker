@@ -34,13 +34,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 const projectRoutes = require('./routes/projects');
+const issueRoutes = require('./routes/issues');
 
 
 
 
 
 app.use (`/projects`, projectRoutes);
-
+app.use  (`/projects/:id/issues`, issueRoutes);
 
 
 

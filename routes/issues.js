@@ -3,15 +3,13 @@ const router = express.Router();
 const multer  = require('multer');
 const upload = multer();
 
-const projects = require('../controllers/projects')
+const issues = require('../controllers/issues')
 
 
 router.route('/')
-.get(projects.index)
-.post(upload.none(),projects.createProject)
+.post(upload.none(),issues.createIssue)
 
-router.route("/:id")
-.get(projects.showProject)
+
 
 
 module.exports = router;

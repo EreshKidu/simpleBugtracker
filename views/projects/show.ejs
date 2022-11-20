@@ -2,91 +2,139 @@
 
 
 <h1><%= project.title %> </h1>
-<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewIssue" aria-expanded="false" aria-controls="collapseNewIssue" id="buttonNewIssue">
-    Create new issue
-  </button>
+<h5><%= project.description %> </h5>
 
-<div class="mb-3 collapse" id="collapseNewIssue">
-    <div class="row">
-       <div class="col-md-6">
-            <div class="card-body">
-                <form action="/projects/<%= project._id %>" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description of new issue</label>
-                        <textarea class="form-control" type="text" id="description" name="issue[description]" required>
-                            </textarea>
+<div class="row">
+    <div class="col-md-8">
+        <h3>Issues</h3>
 
-                    </div>
+        <button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewIssue" aria-expanded="false" aria-controls="collapseNewIssue" id="buttonNewIssue">
+            Create new issue
+          </button>
         
-                    <div class="mb-3">
-                        <label class="form-label" for="status">Status</label>
-                        <select class="form-select" aria-label="Status select" name="issue[status]">
-                            <% for (let status of statuses) { %> 
-                            <option value="<%= status %>"><%= status %> </option>
-                            <% } %> 
-
-                          </select>
-
+        <div class="mb-3 collapse" id="collapseNewIssue">
+            <div class="row">
+               <div class="col-md-12">
+                    <div class="card-body">
+                        <form action="/projects/<%= project._id %>/issues" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
+                            <div class="mb-3">
+                                <label class="form-label" for="description">Description of new issue</label>
+                                <textarea class="form-control" type="text" id="description" name="issue[description]" required>
+                                    </textarea>
+        
+                            </div>
+                
+                            <div class="mb-3">
+                                <label class="form-label" for="status">Status</label>
+                                <select class="form-select" aria-label="Status select" name="issue[status]">
+                                    <% for (let status of statuses) { %> 
+                                    <option value="<%= status %>"><%= status %> </option>
+                                    <% } %> 
+        
+                                  </select>
+        
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label" for="status">Priority</label>
+                                <select class="form-select" aria-label="priority select" name="issue[priority]">
+                                    <% for (let priority of priorities) { %> 
+                                    <option value="<%= priority %>"><%= priority %> </option>
+                                    <% } %> 
+        
+                                  </select>
+        
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label" for="status">Type of issue</label>
+                                <select class="form-select" aria-label="issueType select" name="issue[issueType]">
+                                    <% for (let issueType of issueTypes ) { %> 
+                                    <option value="<%= issueType %>"><%= issueType %> </option>
+                                    <% } %> 
+        
+                                  </select>
+        
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-success" id="buttonSaveissue">Save issue</button>
+                            </div>
+                            </form>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="status">Priority</label>
-                        <select class="form-select" aria-label="priority select" name="issue[priority]">
-                            <% for (let priority of priorities) { %> 
-                            <option value="<%= priority %>"><%= priority %> </option>
-                            <% } %> 
-
-                          </select>
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="status">Type of issue</label>
-                        <select class="form-select" aria-label="issueType select" name="issue[issueType]">
-                            <% for (let issueType of issueTypes ) { %> 
-                            <option value="<%= issueType %>"><%= issueType %> </option>
-                            <% } %> 
-
-                          </select>
-
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-success" id="buttonSaveissue">Save project</button>
-                    </div>
-                    </form>
+                </div>
             </div>
         </div>
+
+
+
+
+
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-dark table-striped table-bordered table-sm table-responsive w-auto">
+            <thead>
+            <tr>
+                <th data-sortable="true" class="th-sm">ID</th>
+                <th data-sortable="true">Description</th>
+                <th data-sortable="true">Creation date</th>
+                <th data-sortable="true">Status </th>
+                <th data-sortable="true">Priority </th>
+                <th data-sortable="true">Type </th>
+                
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            
+                <% for (let issue of project.issues) {%> 
+                <tr>
+                    <td><%= issue._id %> </td>
+                    <td class="" ><%= issue.description %></td>
+                    <td><%= issue.createdAt.toDateString() %> </td>
+                    <td><%= issue.status %> </td>
+                    <td><%= issue.priority  %> </td>
+                    <td><%= issue.issueType  %> </td>
+                </tr>
+                    <% } %> 
+            
+            </tbody>
+        </table> 
+
+    </div>
+
+    <div class="col-md-4">
+        <h3>Assigned team</h3>
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-dark table-striped table-bordered table-sm table-responsive w-auto">
+            <thead>
+            <tr>
+                <th data-sortable="true">Username</th>
+                <th data-sortable="true">E-mail</th>
+                <th data-sortable="true">Role</th>
+                
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            
+
+                <tr>
+                    <td>Developer #1</td>
+                    <td>dev1@sbt.com</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <td>Tester #1</td>
+                    <td>tester1@sbt.com</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <td>Project manager #1</td>
+                    <td>pm1@sbt.com</td>
+                    <td>Project manager</td>
+                </tr>
+
+            
+            </tbody>
+        </table> 
+
     </div>
 </div>
-
-<table data-toggle="table" data-pagination="true"
-data-search="true">
-    <thead>
-      <tr>
-        <th data-sortable="true">ID</th>
-        <th data-sortable="true">Description</th>
-        <th data-sortable="true">Creation date</th>
-        <th data-sortable="true">Status </th>
-        <th data-sortable="true">Priority </th>
-        <th data-sortable="true">Type </th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      
-        <% for (let issue of project.issues) {%> 
-        <tr>
-            <td><%= issue._id %> </td>
-            <td><%= issue.description %></td>
-            <td><%= issue.createdAt.toDateString() %> </td>
-            <td><%= issue.status %> </td>
-            <td><%= issue.priority  %> </td>
-            <td><%= issue.issueType  %> </td>
-        </tr>
-            <% } %> 
-       
-    </tbody>
-  </table> 
 
   <script>
     

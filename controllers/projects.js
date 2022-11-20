@@ -33,16 +33,3 @@ module.exports.showProject = async (req, res) => {
 }
 
 
-module.exports.createIssue = async (req, res) => {
-
-  
-  // console.log (req.body.project);
-  const newIssue = new Issue(req.body.issue);
-  const project = await Project.findById(req.params.id)
-  await newIssue.save();
-  project.issues.push(newIssue);
-  await project.save();
-
-
-  res.send (newIssue);
-}

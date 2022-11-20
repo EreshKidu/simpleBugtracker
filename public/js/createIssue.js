@@ -1,5 +1,6 @@
 
 
+
 const formCreateIssue = document.querySelector ("#formCreateIssue");
 
 
@@ -7,9 +8,15 @@ formCreateIssue.addEventListener("submit", async function(e) {
     e.preventDefault();
     // Get data from form
     let issue = new FormData(formCreateIssue);
+    // let blob = new Blob([project], {
+    //     type: 'application/json'
+    //   });
+    issue.append("projectID", project._id);
 
+    console.log ([...issue]);
+    
     // Send data from form
-    let res = await axios.post(`/projects/${project._id}`, issue);
+    let res = await axios.post(`/projects/${project._id}/issues`, issue);
     
     //draw new issue from database
      drawIssue (res);
@@ -34,7 +41,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
 
     const issue = res.data;
     const createdDate = new Date (issue.createdAt);
-    firstIssue.insertAdjacentHTML('beforebegin', `
+    firstIssue.insertAdjacentHTML('afterbegin', `
         <tr>
         <td>${issue._id}</td>
         <td>${issue.description}</td>
