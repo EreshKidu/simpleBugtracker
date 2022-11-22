@@ -85,7 +85,7 @@
             
                 <% for (let issue of project.issues) {%> 
                 <tr>
-                    <td><%= issue._id %> </td>
+                    <td><a href="/projects/<%= project._id %>/issues/<%= issue._id %>"><%= issue._id %> </a> </td>
                     <td class="" ><%= issue.description %></td>
                     <td><%= issue.createdAt.toDateString() %> </td>
                     <td><%= issue.status %> </td>

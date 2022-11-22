@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Comment = require('./comment')
+
 const IssueSchema = new Schema( {
     description: String,
     createdAt: {
@@ -19,7 +21,11 @@ const IssueSchema = new Schema( {
     issueType: {
         type: String,
         enum: ['Bug/error', 'Enhancement']
-    }
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 
 });
 

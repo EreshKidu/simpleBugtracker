@@ -9,6 +9,9 @@ const issues = require('../controllers/issues')
 router.route('/')
 .post(upload.none(),issues.createIssue)
 
+router.route('/:id')
+.get(issues.showIssue)
+
 
 
 

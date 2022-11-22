@@ -1,0 +1,97 @@
+<% layout('layouts/mainLayout') %> 
+
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Issue details</h3>
+
+        <table class="table table-bordered">
+
+            <tbody>
+              <tr>
+
+                <td>
+                    <h5>Issue description</h2>
+                    <h6><%= issue.description %> </h3>
+                </td>
+                <td>
+                    <h5>Created by:</h2>
+                    <h6>Author </h3>
+                </td>
+              </tr>
+              <tr>
+
+                <td>
+                    <h5>Status</h2>
+                    <h6><%= issue.status %> </h3>
+                </td>
+                <td>
+                    <h5>Priority</h2>
+                    <h6><%= issue.priority %> </h3>
+                </td>
+              </tr>
+              <tr>
+
+                <td>
+                    <h5>Issue type:</h2>
+                    <h6><%= issue.issueType %> </h3>
+                </td>
+                <td>
+                    <h5>Project:</h2>
+                    <h6><%= issue.issueType %> </h3>
+                    </td>
+              </tr>
+
+                <td>
+                    <h5>Assigned developer:</h2>
+                    <h6>Developer </h3>
+                </td>
+                
+                <td>
+                    <h5>Last update:</h2>
+                    <h6>Update time </h3>
+                </td>
+          
+            </tbody>
+          </table>
+
+
+
+    </div>
+    <div class="col-md-4" id="commentsColumn">
+        <h3>Comments</h3>
+        <form class="mb-3 validated-form"  method="POST"  novalidate id="commentForm" enctype="multipart/form-data"> 
+
+            <textarea
+            class="form-control mb-3"
+            name="comment[body]"
+            id="body"
+            cols="30"
+            rows="3"
+            required
+            ></textarea>
+        
+            <button class="btn btn-success">Send comment</button>
+        </form>
+
+
+
+        <% for (let comment of issue.comments) { %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Author on <%= comment.createdAt.toLocaleString() %> 
+                  
+                </h5>
+                <p class="card-text"><%= comment.body %></p>
+                
+              </div>
+            </div>
+        
+        <% } %>
+
+
+
+
+    </div>
+</div>

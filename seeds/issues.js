@@ -6,9 +6,12 @@ module.exports = [
         status: 'New',
             // enum: ['New', 'In progress', 'Closed']
         
-        priority: 'Low'
+        priority: 'Low',
             // enum: ['Low', 'Medium', 'High']
-        
+        issueType: "Bug/error"
+               
+                // enum: ['Bug/error', 'Enhancement']
+            
 
     },
     {
@@ -18,9 +21,9 @@ module.exports = [
         status: 'In progress',
             // enum: ['New', 'In progress', 'Closed']
         
-        priority: 'High'
+        priority: 'High',
             // enum: ['Low', 'Medium', 'High']
-        
+            issueType: "Enhancement"
 
     },
     {
@@ -30,7 +33,9 @@ module.exports = [
         status: 'Closed',
             // enum: ['New', 'In progress', 'Closed']
         
-        priority: 'Low'
+        priority: 'Low',
+        // enum: ['Low', 'Medium', 'High']
+        issueType: "Enhancement"
             // enum: ['Low', 'Medium', 'High']
         
 
@@ -42,7 +47,9 @@ module.exports = [
         status: 'In progress',
             // enum: ['New', 'In progress', 'Closed']
         
-        priority: 'Medium'
+        priority: 'Medium',
+        // enum: ['Low', 'Medium', 'High']
+    issueType: "Bug/error"
             // enum: ['Low', 'Medium', 'High']
         
 
