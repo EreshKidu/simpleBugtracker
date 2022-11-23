@@ -3,16 +3,10 @@ const router = express.Router({mergeParams: true});
 const multer  = require('multer');
 const upload = multer();
 
-const issues = require('../controllers/issues')
+const comments = require('../controllers/comments')
 
 
 router.route('/')
-.post(upload.none(),issues.createIssue)
-
-router.route('/:issueId')
-.get(issues.showIssue)
-
-
-
+.post(upload.none(),comments.createComment)
 
 module.exports = router;

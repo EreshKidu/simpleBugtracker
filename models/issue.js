@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const Comment = require('./comment')
 
 const IssueSchema = new Schema( {
+    title: String,
     description: String,
     createdAt: {
         type: Date,

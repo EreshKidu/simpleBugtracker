@@ -35,13 +35,14 @@ app.use(methodOverride('_method'));
 
 const projectRoutes = require('./routes/projects');
 const issueRoutes = require('./routes/issues');
-
+const commentRoutes = require('./routes/comments');
 
 
 
 
 app.use (`/projects`, projectRoutes);
-app.use  (`/projects/:id/issues`, issueRoutes);
+app.use  (`/projects/:projectId/issues`, issueRoutes);
+app.use  (`/projects/:projectId/issues/:issueId/comments`, commentRoutes);
 
 
 

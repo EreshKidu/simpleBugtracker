@@ -11,12 +11,12 @@ formCreateIssue.addEventListener("submit", async function(e) {
     // let blob = new Blob([project], {
     //     type: 'application/json'
     //   });
-    issue.append("projectID", project._id);
+    // issue.append("projectID", project._id);
 
-    console.log ([...issue]);
+    // console.log ([...issue]);
     
     // Send data from form
-    let res = await axios.post(`/projects/${project._id}/issues`, issue);
+    let res = await axios.post(`/projects/${projectId}/issues`, issue);
     
     //draw new issue from database
      drawIssue (res);
@@ -31,9 +31,11 @@ formCreateIssue.addEventListener("submit", async function(e) {
          // clear and close form for new issue
     const buttonNewIssue = document.querySelector ("#buttonNewIssue");
     const descriptionNewIssue = document.querySelector ("#description");
+    const titleNewIssue = document.querySelector ("#title");
 
 
     descriptionNewIssue.value = "";
+    titleNewIssue.value = "";
     buttonNewIssue.click();
 
     // Find first row and insert new issue above that card
@@ -43,7 +45,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
     const createdDate = new Date (issue.createdAt);
     firstIssue.insertAdjacentHTML('afterbegin', `
         <tr>
-        <td>${issue._id}</td>
+        <td><a href="/projects/${projectId}/issues/${issue._id}">${issue._id}</a></td>
         <td>${issue.description}</td>
         <td>${createdDate.toDateString()}</td>
         <td>${issue.status}</td>

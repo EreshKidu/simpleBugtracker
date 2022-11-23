@@ -6,9 +6,9 @@ const Issue = require ("../models/issue");
 module.exports.createIssue = async (req, res) => {
 
   
-    console.log (req.body, req.params.id);
+    console.log (req.body, req.params.id, req.params.projectId);
      const newIssue = new Issue(req.body.issue);
-    const currentProject = await Project.findById(req.body.projectID);
+    const currentProject = await Project.findById(req.params.projectId);
 
     console.log(newIssue, currentProject);
 
@@ -24,8 +24,10 @@ module.exports.createIssue = async (req, res) => {
 
   module.exports.showIssue = async (req, res) => {
 
-    const issue = await Issue.findById(req.params.id)
+    const issue = await Issue.findById(req.params.issueId)
       .populate({path: "comments"})
+    
+    const projectId = req.params.projectId;
     // console.log (req.body, req.params.id);
     //  const newIssue = new Issue(req.body.issue);
     // const currentProject = await Project.findById(req.body.projectID);
@@ -38,7 +40,7 @@ module.exports.createIssue = async (req, res) => {
     // await currentProject.save();
   
   
-    res.render ("issues/show", {issue});
+    res.render ("issues/show", {issue, projectId});
   }
 
 

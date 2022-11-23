@@ -1,8 +1,25 @@
 <% layout('layouts/mainLayout') %> 
 
+<div class="row">
+    <div class="col-md-8">
+        <h1 contenteditable="true"><%= project.title %> </h1>
+    </div>
+    <div class="col-md-4 text-end">
+       
+            <button class="btn btn-info" id="buttonEditProject">Edit project</button>
+            <button class="btn btn-danger" id="buttonDeleteProject">Delete project</button>
+        
+    </div>
 
-<h1><%= project.title %> </h1>
-<h5><%= project.description %> </h5>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h5><%= project.description %> </h5>
+
+    </div>
+</div>
+    
 
 <div class="row">
     <div class="col-md-8">
@@ -17,6 +34,13 @@
                <div class="col-md-12">
                     <div class="card-body">
                         <form action="/projects/<%= project._id %>/issues" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
+                            <div class="mb-3">
+                                <label class="form-label" for="title">Title of new issue</label>
+                                <input class="form-control" type="text" id="title" name="issue[title]" required>
+                                    
+        
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="description">Description of new issue</label>
                                 <textarea class="form-control" type="text" id="description" name="issue[description]" required>
@@ -73,7 +97,7 @@
             <thead>
             <tr>
                 <th data-sortable="true" class="th-sm">ID</th>
-                <th data-sortable="true">Description</th>
+                <th data-sortable="true">Title</th>
                 <th data-sortable="true">Creation date</th>
                 <th data-sortable="true">Status </th>
                 <th data-sortable="true">Priority </th>
@@ -86,7 +110,7 @@
                 <% for (let issue of project.issues) {%> 
                 <tr>
                     <td><a href="/projects/<%= project._id %>/issues/<%= issue._id %>"><%= issue._id %> </a> </td>
-                    <td class="" ><%= issue.description %></td>
+                    <td class="" ><%= issue.title %></td>
                     <td><%= issue.createdAt.toDateString() %> </td>
                     <td><%= issue.status %> </td>
                     <td><%= issue.priority  %> </td>
@@ -138,7 +162,7 @@
 
   <script>
     
-    const project = <%- JSON.stringify(project)  %>;
+    const projectId = <%- JSON.stringify(project._id)  %>;
   
   </script>
 
