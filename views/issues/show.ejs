@@ -3,8 +3,28 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h3>Issue details</h3>
+        <h3 id="titleIssue"><%= issue.title %> </h3>
 
+      </div>
+      <div class="col-md-4 text-end" id="buttonsIssue">
+        <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
+        <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
+        <button class="btn btn-info" id="buttonEditIssue">Edit issue</button>
+        <form
+        class="d-inline"
+        action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-danger" id="buttonDeleteIssue">Delete Issue</button>
+        </form>
+    
+    </div>
+
+
+</div>
+
+<div class="row">
+  <div class="col-md-8">
         <table class="table table-bordered">
 
             <tbody>
@@ -12,7 +32,7 @@
 
                 <td>
                     <h5>Issue description</h2>
-                    <h6><%= issue.description %> </h3>
+                    <h6 id="descriptionIssue"><%= issue.description %> </h6>
                 </td>
                 <td>
                     <h5>Created by:</h2>
@@ -23,22 +43,39 @@
 
                 <td>
                     <h5>Status</h2>
-                    <h6><%= issue.status %> </h3>
+                      <select class="form-select" aria-label="Status select" name="issue[status]" id="selectStatus" disabled>
+                        <% for (let status of statuses) { %> 
+                        <option value="<%= status %>" <% if (status==issue.status) {%> selected <% } %>  %> ><%= status %> </option>
+                        <% } %> 
+
+                      </select>
+                   
                 </td>
                 <td>
                     <h5>Priority</h2>
-                    <h6><%= issue.priority %> </h3>
+                      <select class="form-select" aria-label="Priority select" name="issue[priority]" id="selectPriority" disabled>
+                        <% for (let priority of priorities) { %> 
+                        <option value="<%= priority %>" <% if (priority==issue.priority) {%> selected <% } %>  %> ><%= priority %> </option>
+                        <% } %> 
+
+                      </select>
                 </td>
               </tr>
               <tr>
 
                 <td>
                     <h5>Issue type:</h2>
-                    <h6><%= issue.issueType %> </h3>
+                      
+                      <select class="form-select" aria-label="Priority select" name="issue[issueType]" id="selectIssueType" disabled>
+                        <% for (let issueType of issueTypes) { %> 
+                        <option value="<%= issueType %>" <% if (issueType==issue.issueType) {%> selected <% } %>  %> ><%= issueType %> </option>
+                        <% } %> 
+
+                      </select>
                 </td>
                 <td>
                     <h5>Project:</h2>
-                    <h6><%= issue.issueType %> </h3>
+                    <h6><a href="/projects/<%= project._id %>"><%= project.title %></a></h3>
                     </td>
               </tr>
 
@@ -100,9 +137,10 @@
 </div>
 <script>
     
-    const projectId = <%- JSON.stringify(projectId)  %>;
+    const projectId = <%- JSON.stringify(project._id)  %>;
     const issueId = <%- JSON.stringify(issue._id)  %>;
 
   
 </script>
 <script src="/js/createComment.js"> </script>
+<script src="/js/editIssue.js"> </script>

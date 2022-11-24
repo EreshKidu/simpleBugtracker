@@ -19,8 +19,7 @@ const ProjectSchema = new Schema( {
 });
 
 ProjectSchema.post('findOneAndDelete', async function(doc){
-    console.log ("Deleting Issues start");
-    console.log (doc);
+
     if (doc) {
         for (issue of doc.issues) {
             await Issue.findOneAndDelete (issue._id)

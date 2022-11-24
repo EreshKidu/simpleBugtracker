@@ -11,8 +11,8 @@ router.route('/')
 
 router.route('/:issueId')
 .get(issues.showIssue)
-
-
+.put(issues.editIssue)
+.delete(issues.deleteIssue)
 
 
 module.exports = router;
