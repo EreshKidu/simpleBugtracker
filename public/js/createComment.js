@@ -11,13 +11,13 @@ const drawComment = (res) => {
 
     bodyComment.value = "";
 
-    // Find first card and insert new project above that card
-    const firstCard = document.querySelector ("#cardComment");
+    // Find first card and insert new comment at top
+    const firstCard = document.querySelector ("#divComments");
 
     const comment = res.data;
     const createdData = new Date (comment.createdAt);
 
-    firstCard.insertAdjacentHTML('beforebegin', `
+    firstCard.insertAdjacentHTML('afterbegin', `
             <div class="card mb-3" id="commentCard">
             <div class="card-body">
             <h5 class="card-title">
@@ -37,8 +37,6 @@ formCreateComment.addEventListener("submit", async function(e) {
     e.preventDefault();
     // Get data from form
     let comment = new FormData(formCreateComment);
-    console.log([...comment]);
-   
 
     // Send data from form
     let res = await axios.post(`/projects/${projectId}/issues/${issueId}/comments`, comment);

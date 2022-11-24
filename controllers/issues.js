@@ -6,12 +6,9 @@ const Issue = require ("../models/issue");
 module.exports.createIssue = async (req, res) => {
 
   
-    console.log (req.body, req.params.id, req.params.projectId);
+
      const newIssue = new Issue(req.body.issue);
     const currentProject = await Project.findById(req.params.projectId);
-
-    console.log(newIssue, currentProject);
-
 
     await newIssue.save();
     currentProject.issues.push(newIssue);

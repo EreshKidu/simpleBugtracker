@@ -30,4 +30,18 @@ const IssueSchema = new Schema( {
 
 });
 
+
+IssueSchema.post('findOneAndDelete', async function(doc){
+    console.log ("Deleting comments start");
+    console.log (doc);
+    if (doc) {
+        await Comment.deleteMany({
+            _id: {
+                $in: doc.comments
+            }
+        })
+    }
+})
+
+
 module.exports = mongoose.model('Issue', IssueSchema)

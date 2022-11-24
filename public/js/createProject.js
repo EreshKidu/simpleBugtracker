@@ -14,13 +14,13 @@ const drawProject = (res) => {
     descriptionNewProject.value = "";
     buttonNewProject.click();
 
-    // Find first card and insert new project above that card
-    const firstCard = document.querySelector ("#card");
+    // Find div with all projects and insert new project at top
+    const firstCard = document.querySelector ("#cards");
 
     const project = res.data;
     const createdData = new Date (project.createdAt);
 
-    firstCard.insertAdjacentHTML('beforebegin', `
+    firstCard.insertAdjacentHTML('afterbegin', `
     <div class="card mb-3" id="card">
             <div class="row">
             <div class="col-md-6">
@@ -44,6 +44,7 @@ formCreateProject.addEventListener("submit", async function(e) {
     e.preventDefault();
     // Get data from form
     let project = new FormData(formCreateProject);
+    console.log ([...project]);
 
     // Send data from form
     let res = await axios.post(`/projects`, project);

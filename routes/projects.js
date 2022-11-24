@@ -12,6 +12,7 @@ router.route('/')
 
 router.route("/:id")
 .get(projects.showProject)
-
+.put(projects.editProject)
+.delete(projects.deleteProject)
 
 module.exports = router;

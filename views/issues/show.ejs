@@ -74,9 +74,8 @@
             <button class="btn btn-success">Send comment</button>
         </form>
 
-
-
-        <% for (let comment of issue.comments) { %>
+        <div class="div" id="divComments">
+          <% for (let comment of issue.comments) { %>
             <div class="card mb-3" id="cardComment">
               <div class="card-body">
                 <h5 class="card-title">
@@ -89,6 +88,10 @@
             </div>
         
         <% } %>
+
+
+        </div>
+
 
 
 

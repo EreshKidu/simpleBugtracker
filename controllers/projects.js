@@ -27,9 +27,37 @@ module.exports.showProject = async (req, res) => {
   const priorities = Issue.schema.path('priority').enumValues;
   const issueTypes = Issue.schema.path('issueType').enumValues;
 
-  console.log (statuses, priorities);
 
   res.render ("projects/show", {project, statuses,priorities,issueTypes });
 }
+
+
+module.exports.editProject= async (req, res) => {
+  //const editedCampground = new Campground(req.body.campground);
+
+
+  const project = await Project.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+  // if (req.body.deleteImages) {
+  //   for (let filename of req.body.deleteImages) {
+  //     await cloudinary.uploader.destroy(filename);
+  //   }
+  //   await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
+  //   console.log(campground);
+  // }
+
+  // req.flash("success", "Successfuly updated campground!");
+   res.send(project);
+}
+
+
+module.exports.deleteProject= async (req, res) => {
+  //const editedCampground = new Campground(req.body.campground);
+  await Project.findByIdAndDelete(req.params.id);
+  res.redirect("/projects");
+}
+
 
 

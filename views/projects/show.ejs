@@ -2,20 +2,27 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h1 contenteditable="true"><%= project.title %> </h1>
+        <h1 id="titleProject"><%= project.title %> </h1>
     </div>
-    <div class="col-md-4 text-end">
-       
-            <button class="btn btn-info" id="buttonEditProject">Edit project</button>
-            <button class="btn btn-danger" id="buttonDeleteProject">Delete project</button>
-        
+    <div class="col-md-4 text-end" id="buttonsProject">
+        <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
+        <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
+        <button class="btn btn-info" id="buttonEditProject">Edit project</button>
+        <form
+        class="d-inline"
+        action="/projects/<%= project._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-danger" id="buttonDeleteProject">Delete project</button>
+        </form>
+    
     </div>
 
 
 </div>
 <div class="row">
     <div class="col-md-12">
-        <h5><%= project.description %> </h5>
+        <h5 id="descriptionProject"><%= project.description %> </h5>
 
     </div>
 </div>
@@ -167,3 +174,6 @@
   </script>
 
   <script src="/js/createIssue.js"></script>
+  <script src="/js/editProject.js"></script>
+
+
