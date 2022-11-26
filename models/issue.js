@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongooseHistory = require('mongoose-history');
+
 
 const Comment = require('./comment')
+
+const ImageSchema = new Schema( {
+    url: String,
+    filename: String
+})
 
 const IssueSchema = new Schema( {
     title: String,
@@ -26,9 +33,12 @@ const IssueSchema = new Schema( {
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
-    }]
+    }],
+    images: [ImageSchema],
 
 });
+
+IssueSchema.plugin(mongooseHistory);
 
 
 IssueSchema.post('findOneAndDelete', async function(doc){

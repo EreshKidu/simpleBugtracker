@@ -9,4 +9,7 @@ const comments = require('../controllers/comments')
 router.route('/')
 .post(upload.none(),comments.createComment)
 
+router.route('/:commentId')
+.delete(comments.deleteComment)
+
 module.exports = router;

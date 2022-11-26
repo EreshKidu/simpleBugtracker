@@ -92,7 +92,46 @@
             </tbody>
           </table>
 
+          <h3>Images</h3>
 
+          <div class="mb-3 custom-file">
+
+            <form
+            class="d-inline"
+            action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=PUT"
+            method="POST"
+            >
+
+            
+        
+            <label for="formFile" class="form-label custom-file-label">Choose images</label>
+            <input class="form-control custom-file-input mb-1" type="file" id="formFile" name="image" multiple>
+
+            <button class="btn btn-info btn-sm" id="buttonUploadImage">Upload images</button>
+          </form>
+        </div>
+
+          <h3>History</h3>
+
+          <table class="table-dark table-striped table-bordered table-sm table-responsive">
+            <thead>
+                <th>Action</th>
+                <th>Made by:</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+              <% for (let issueChange of issueHistory) {%> 
+                <tr>
+                    <td><%= issueChange.o %> </td>
+                    <td>Author</td>
+                    <td><%= issueChange.t.toLocaleString() %> </td>
+                    
+                </tr>
+                    <% } %> 
+
+            </tbody>
+            
+          </table>
 
     </div>
     <div class="col-md-4" id="commentsColumn">
@@ -119,10 +158,26 @@
                   Author on <%= comment.createdAt.toLocaleString() %> 
                   
                 </h5>
-                <p class="card-text"><%= comment.body %></p>
+                <p class="card-text" id="textComment"><%= comment.body %></p>
+
+                <div class="text-start" id="buttonsComment">
+                 
+                  <form
+                  class="d-inline"
+                  action="/projects/<%= project._id %>/issues/<%= issue._id %>/comments/<%= comment._id %>?_method=DELETE"
+                  method="POST"
+                  >
+                  <button class="btn btn-danger btn-sm" id="buttonDeleteIssue">Delete</button>
+                  </form>
+              
+              </div>
                 
               </div>
+
+
+
             </div>
+
         
         <% } %>
 
@@ -139,6 +194,7 @@
     
     const projectId = <%- JSON.stringify(project._id)  %>;
     const issueId = <%- JSON.stringify(issue._id)  %>;
+
 
   
 </script>

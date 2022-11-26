@@ -33,6 +33,7 @@ const seedDB = async () => {
 
         for (const issue of issues) {
             const newIssue = new Issue ({
+                title: issue.title,
                 description: issue.description,
                 createdAt: issue.createdAt,
                 status: issue.status,

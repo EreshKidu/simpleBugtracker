@@ -25,7 +25,17 @@ const drawComment = (res) => {
                 
             </h5>
             <p class="card-text">${comment.body}</p>
-            
+            <div class="text-start" id="buttonsComment">
+                 
+                  <form
+                  class="d-inline"
+                  action='/projects/${projectId}/issues/${issueId}/comments/${comment._id}?_method=DELETE'
+                  method="POST"
+                  >
+                  <button class="btn btn-danger btn-sm" id="buttonDeleteIssue">Delete</button>
+                  </form>
+              
+              </div>
             </div>
         </div>
     

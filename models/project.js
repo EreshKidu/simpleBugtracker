@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongooseHistory = require('mongoose-history');
+
 
 const Issue = require('./issue')
 
@@ -17,6 +19,9 @@ const ProjectSchema = new Schema( {
     }]
 
 });
+
+ProjectSchema.plugin(mongooseHistory);
+
 
 ProjectSchema.post('findOneAndDelete', async function(doc){
 
