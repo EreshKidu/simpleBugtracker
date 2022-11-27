@@ -4,6 +4,10 @@ const path = require ('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const multer = require('multer');
+var morgan = require('morgan')
+
+
 
 
 const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
@@ -25,6 +29,8 @@ db.once('open', () => {
 
 
 
+
+
 const app = express ();
 
 app.engine('ejs', ejsMate);
@@ -34,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+app.use(morgan('dev'));
 
 const projectRoutes = require('./routes/projects');
 const issueRoutes = require('./routes/issues');

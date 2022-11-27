@@ -28,8 +28,6 @@ module.exports.createIssue = async (req, res) => {
 
     const project = await Project.findById(req.params.projectId)
 
-
-
     let issueHistory = await IssueHistory.find({"d._id" :  new mongoose.Types.ObjectId (req.params.issueId)});
     
 
@@ -46,11 +44,24 @@ module.exports.createIssue = async (req, res) => {
 
     //Changed from .findByIdAndUpdate to .save() to track changes in History
     let issue = await Issue.findById(req.params.issueId);
+    
 
     //req.body has edited issue
     issue = Object.assign(issue, req.body);
 
+    if (req.files) {
+      issue.images = req.files.map (f => ({url: f.path, filename: f.filename}));
+
+    }
+    
+    
     await issue.save();
+    await issue.populate ({path: "images"});
+    
+
+    if (req.files){
+      res.redirect(`/projects/${req.params.projectId}/issues/${req.params.issueId}`)
+    }
   
     // const issue = await Issue.findByIdAndUpdate(
     //   req.params.issueId,

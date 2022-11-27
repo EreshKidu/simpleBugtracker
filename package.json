@@ -18,6 +18,7 @@
   "homepage": "https://github.com/EreshKidu/simpleBugtracker#readme",
   "dependencies": {
     "bootstrap-table": "^1.21.1",
+    "bs5-lightbox": "^1.8.2",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.2",
@@ -26,6 +27,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.7.2",
     "mongoose-history": "^0.8.0",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0"
   }

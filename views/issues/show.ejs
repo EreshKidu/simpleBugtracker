@@ -86,7 +86,7 @@
                 
                 <td>
                     <h5>Last update:</h2>
-                    <h6>Update time </h3>
+                    <h6><%= issue.updatedAt.toLocaleString() %>  </h3>
                 </td>
           
             </tbody>
@@ -100,6 +100,7 @@
             class="d-inline"
             action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=PUT"
             method="POST"
+            enctype="multipart/form-data"
             >
 
             
@@ -109,6 +110,42 @@
 
             <button class="btn btn-info btn-sm" id="buttonUploadImage">Upload images</button>
           </form>
+
+          <h5>List of images</h5>
+
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+              <% for (let i =0; i < issue.images.length; i++) {%> 
+              <div class="carousel-item <% if (i==0) {%>  active <% } %> ">
+  
+                <a href="/uploads/<%= issue.images[i].filename %>" data-toggle="lightbox"> 
+                  <img src="/uploads/<%= issue.images[i].filename %> " class="d-block w-50 h-50 mx-auto img-fluid" alt="...">
+                </a>
+              </div>
+              <% } %> 
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+
+
+
+
+        
         </div>
 
           <h3>History</h3>
@@ -195,8 +232,8 @@
     const projectId = <%- JSON.stringify(project._id)  %>;
     const issueId = <%- JSON.stringify(issue._id)  %>;
 
-
   
 </script>
 <script src="/js/createComment.js"> </script>
 <script src="/js/editIssue.js"> </script>
+

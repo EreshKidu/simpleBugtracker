@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const mongooseHistory = require('mongoose-history');
 
 
-const Comment = require('./comment')
+const Comment = require('./comment');
 
 const ImageSchema = new Schema( {
     url: String,
@@ -13,11 +13,11 @@ const ImageSchema = new Schema( {
 const IssueSchema = new Schema( {
     title: String,
     description: String,
-    createdAt: {
-        type: Date,
-        // `Date.now()` returns the current unix timestamp as a number
-        default: Date.now
-      },
+    // createdAt: {
+    //     type: Date,
+    //     // `Date.now()` returns the current unix timestamp as a number
+    //     default: Date.now
+    //   },
     status: {
         type: String,
         enum: ['New', 'In progress', 'Closed']
@@ -36,7 +36,8 @@ const IssueSchema = new Schema( {
     }],
     images: [ImageSchema],
 
-});
+},
+{ timestamps: true });
 
 IssueSchema.plugin(mongooseHistory);
 
@@ -49,6 +50,7 @@ IssueSchema.post('findOneAndDelete', async function(doc){
                 $in: doc.comments
             }
         })
+
     }
 })
 

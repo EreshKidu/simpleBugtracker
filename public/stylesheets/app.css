@@ -32,3 +32,7 @@ table {
 .card-body {
     background-color: #27496D;
 }
+
+.carousel-inner {
+    height: 300px;
+}

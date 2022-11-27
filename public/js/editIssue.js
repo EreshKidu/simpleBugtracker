@@ -1,5 +1,4 @@
 
-
 const toggleEditable = (obj) => {
 
     if (obj.nodeName == 'SELECT') {
