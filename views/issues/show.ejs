@@ -6,6 +6,9 @@
         <h3 id="titleIssue"><%= issue.title %> </h3>
 
       </div>
+
+      <% if (currentUser.equals(issue.author)) {%> 
+
       <div class="col-md-4 text-end" id="buttonsIssue">
         <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
         <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
@@ -19,6 +22,7 @@
         </form>
     
     </div>
+    <% } %> 
 
 
 </div>
@@ -197,6 +201,8 @@
                 </h5>
                 <p class="card-text" id="textComment"><%= comment.body %></p>
 
+                <% if (currentUser.equals(comment.author)) {%> 
+
                 <div class="text-start" id="buttonsComment">
                  
                   <form
@@ -208,6 +214,8 @@
                   </form>
               
               </div>
+
+              <% } %> 
                 
               </div>
 
@@ -235,5 +243,8 @@
   
 </script>
 <script src="/js/createComment.js"> </script>
+<% if (currentUser.equals(issue.author)) {%> 
+
 <script src="/js/editIssue.js"> </script>
+<% } %> 
 

@@ -2,17 +2,18 @@ const express = require("express");
 const router = express.Router({mergeParams: true});
 const multer  = require('multer');
 const upload = multer();
+const {isLoggedIn, isAuthor} = require ('../utils/middleware');
 
 const projects = require('../controllers/projects')
 
 
 router.route('/')
 .get(projects.index)
-.post(upload.none(),projects.createProject)
+.post(isLoggedIn,upload.none(),projects.createProject)
 
-router.route("/:id")
-.get(projects.showProject)
-.put(projects.editProject)
-.delete(projects.deleteProject)
+router.route("/:projectId")
+.get(isLoggedIn,projects.showProject)
+.put(isLoggedIn, isAuthor, projects.editProject)
+.delete(isLoggedIn,isAuthor, projects.deleteProject)
 
 module.exports = router;

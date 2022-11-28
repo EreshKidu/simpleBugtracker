@@ -49,9 +49,34 @@ formCreateProject.addEventListener("submit", async function(e) {
     // Send data from form
     let res = await axios.post(`/projects`, project);
     
-    //draw new project from database
-     drawProject (res);
+    //if project is created - draw new project from database. Otherwise - Alert
     
+    if (res.data._id) {
+     drawProject (res);
+    } else {
+        
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+        const alert = (message, type) => {
+          const wrapper = document.createElement('div')
+          wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+          ].join('')
+        
+          alertPlaceholder.append(wrapper)
+        }
+        
+
+        alert('Something went wrong! Login with appropriate permissons', 'danger');
+
+
+
+
+    }
+
 
 
     })

@@ -11,7 +11,8 @@ module.exports.createComment = async (req, res) => {
     const newComment = new Comment(req.body.comment);
     const currentIssue = await Issue.findById(req.params.issueId);
 
-    console.log(newComment, currentIssue);
+    newComment.author = req.user._id;
+    
 
 
     await newComment.save();

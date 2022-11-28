@@ -4,6 +4,8 @@
     <div class="col-md-8">
         <h1 id="titleProject"><%= project.title %> </h1>
     </div>
+
+    <% if (currentUser.equals(project.author)) {%> 
     <div class="col-md-4 text-end" id="buttonsProject">
         <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
         <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
@@ -18,6 +20,7 @@
     
     </div>
 
+    <% } %> 
 
 </div>
 <div class="row">
@@ -174,6 +177,8 @@
   </script>
 
   <script src="/js/createIssue.js"></script>
+  <% if (currentUser.equals(project.author)) {%> 
   <script src="/js/editProject.js"></script>
+  <% } %> 
 
 

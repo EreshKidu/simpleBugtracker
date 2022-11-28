@@ -4,15 +4,16 @@ const multer  = require('multer');
 const upload = multer({dest: 'public/uploads/'});
 
 const issues = require('../controllers/issues')
+const {isLoggedIn, isAuthor} = require ('../utils/middleware');
 
 
 router.route('/')
-.post(upload.none(),issues.createIssue)
+.post(isLoggedIn, upload.none(),issues.createIssue)
 
 router.route('/:issueId')
-.get(issues.showIssue)
-.put(upload.array('image'),issues.editIssue)
-.delete(issues.deleteIssue)
+.get(isLoggedIn, issues.showIssue)
+.put(isLoggedIn, isAuthor, upload.array('image'),issues.editIssue)
+.delete(isLoggedIn, isAuthor, issues.deleteIssue)
 
 
 module.exports = router;

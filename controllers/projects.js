@@ -14,13 +14,15 @@ module.exports.createProject = async (req, res) => {
   
   // console.log (req.body.project); 
   const newProject = new Project(req.body.project);
+  newProject.author = req.user._id;
+
   await newProject.save();
   res.send (newProject);
 }
 
 module.exports.showProject = async (req, res) => {
 
-  const project = await Project.findById(req.params.id)
+  const project = await Project.findById(req.params.projectId)
     .populate({path: "issues"})
   // console.log (req.body.project);
   const statuses = Issue.schema.path('status').enumValues;
@@ -37,7 +39,7 @@ module.exports.editProject= async (req, res) => {
 
 
   const project = await Project.findByIdAndUpdate(
-    req.params.id,
+    req.params.projectId,
     req.body
   );
   // if (req.body.deleteImages) {
@@ -55,7 +57,7 @@ module.exports.editProject= async (req, res) => {
 
 module.exports.deleteProject= async (req, res) => {
   //const editedCampground = new Campground(req.body.campground);
-  await Project.findByIdAndDelete(req.params.id);
+  await Project.findByIdAndDelete(req.params.projectId);
   res.redirect("/projects");
 }
 

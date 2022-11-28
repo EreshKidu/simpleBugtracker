@@ -4,12 +4,13 @@ const multer  = require('multer');
 const upload = multer();
 
 const comments = require('../controllers/comments')
+const {isLoggedIn, isAuthor} = require ('../utils/middleware');
 
 
 router.route('/')
-.post(upload.none(),comments.createComment)
+.post(isLoggedIn, upload.none(),comments.createComment)
 
 router.route('/:commentId')
-.delete(comments.deleteComment)
+.delete(isLoggedIn, isAuthor, comments.deleteComment)
 
 module.exports = router;

@@ -28,7 +28,8 @@ const seedDB = async () => {
         const newProject = new Project ({
             title: project.title,
             description: project.description,
-            createdAt: project.createdAt
+            createdAt: project.createdAt,
+            author: project.author
         })
 
         for (const issue of issues) {
@@ -38,12 +39,14 @@ const seedDB = async () => {
                 createdAt: issue.createdAt,
                 status: issue.status,
                 priority: issue.priority,
-                issueType: issue.issueType
+                issueType: issue.issueType,
+                author: issue.author
             });
             for (const comment of comments) {
                 const newComment = new Comment ({
                     body: comment.body,
-                    createdAt: comment.createdAt
+                    createdAt: comment.createdAt,
+                    author: comment.author
                 });
                 await newComment.save();
                 newIssue.comments.push(newComment);

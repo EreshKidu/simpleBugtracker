@@ -9,7 +9,9 @@ module.exports = [
         
         priority: 'Low',
             // enum: ['Low', 'Medium', 'High']
-        issueType: "Bug/error"
+        issueType: "Bug/error",
+        author: '6384e365f76172550e1c9bc1'
+
                
                 // enum: ['Bug/error', 'Enhancement']
             
@@ -25,7 +27,9 @@ module.exports = [
         
         priority: 'High',
             // enum: ['Low', 'Medium', 'High']
-            issueType: "Enhancement"
+            issueType: "Enhancement",
+        author: '6384e365f76172550e1c9bc1'
+
 
     },
     {
@@ -38,7 +42,9 @@ module.exports = [
         
         priority: 'Low',
         // enum: ['Low', 'Medium', 'High']
-        issueType: "Enhancement"
+        issueType: "Enhancement",
+        author: '6384e365f76172550e1c9bc1'
+
             // enum: ['Low', 'Medium', 'High']
         
 
@@ -53,7 +59,9 @@ module.exports = [
         
         priority: 'Medium',
         // enum: ['Low', 'Medium', 'High']
-    issueType: "Bug/error"
+    issueType: "Bug/error",
+    author: '6384e365f76172550e1c9bc1'
+
             // enum: ['Low', 'Medium', 'High']
         
 

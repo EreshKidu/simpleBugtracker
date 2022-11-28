@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongooseHistory = require('mongoose-history');
-
+const User = require('./user');
 
 const Comment = require('./comment');
 
@@ -35,6 +35,11 @@ const IssueSchema = new Schema( {
         ref: 'Comment'
     }],
     images: [ImageSchema],
+    
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 
 },
 { timestamps: true });

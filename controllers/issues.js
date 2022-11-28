@@ -11,6 +11,7 @@ module.exports.createIssue = async (req, res) => {
 
      const newIssue = new Issue(req.body.issue);
     const currentProject = await Project.findById(req.params.projectId);
+    newIssue.author = req.user._id;
 
     await newIssue.save();
     currentProject.issues.push(newIssue);
