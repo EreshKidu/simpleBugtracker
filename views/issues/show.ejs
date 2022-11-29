@@ -199,7 +199,7 @@
 
         <div class="div" id="divComments">
           <% for (let comment of issue.comments) { %>
-            <div class="card mb-3" id="cardComment">
+            <div class="card mb-3" id="comment<%= comment._id %>">
               <div class="card-body">
                 <h5 class="card-title">
                   Author on <%= comment.createdAt.toLocaleString() %> 
@@ -211,13 +211,9 @@
 
                 <div class="text-start" id="buttonsComment">
                  
-                  <form
-                  class="d-inline"
-                  action="/projects/<%= project._id %>/issues/<%= issue._id %>/comments/<%= comment._id %>?_method=DELETE"
-                  method="POST"
-                  >
-                  <button class="btn btn-danger btn-sm" id="buttonDeleteIssue">Delete</button>
-                  </form>
+
+                  <button class="btn btn-danger btn-sm" id="buttonDeleteIssue" onclick="deleteComment('<%= comment._id %>')">Delete</button>
+                  
               
               </div>
 
@@ -249,6 +245,8 @@
   
 </script>
 <script src="/js/createComment.js"> </script>
+<script src="/js/deleteComment.js"> </script>
+
 <% if (currentUser.equals(issue.author)) {%> 
 
 <script src="/js/editIssue.js"> </script>
