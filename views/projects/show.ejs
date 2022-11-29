@@ -35,75 +35,101 @@
     <div class="col-md-8 border">
         <h3>Issues</h3>
 
-        <button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewIssue" aria-expanded="false" aria-controls="collapseNewIssue" id="buttonNewIssue">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#issueModal">
             Create new issue
-          </button>
-        
-        <div class="mb-3 collapse" id="collapseNewIssue">
-            <div class="row">
-               <div class="col-md-12">
-                    <div class="card-body">
-                        <form action="/projects/<%= project._id %>/issues" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
-                            <div class="mb-3">
-                                <label class="form-label" for="title">Title of new issue</label>
-                                <input class="form-control" type="text" id="title" name="issue[title]" required>
-                                    
-        
-                            </div>
+        </button>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="description">Description of new issue</label>
-                                <textarea class="form-control" type="text" id="description" name="issue[description]" required>
-                                    </textarea>
-        
-                            </div>
-                
-                            <div class="mb-3">
-                                <label class="form-label" for="status">Status</label>
-                                <select class="form-select" aria-label="Status select" name="issue[status]">
-                                    <% for (let status of statuses) { %> 
-                                    <option value="<%= status %>"><%= status %> </option>
-                                    <% } %> 
-        
-                                  </select>
-        
-                            </div>
-        
-                            <div class="mb-3">
-                                <label class="form-label" for="status">Priority</label>
-                                <select class="form-select" aria-label="priority select" name="issue[priority]">
-                                    <% for (let priority of priorities) { %> 
-                                    <option value="<%= priority %>"><%= priority %> </option>
-                                    <% } %> 
-        
-                                  </select>
-        
-                            </div>
-        
-                            <div class="mb-3">
-                                <label class="form-label" for="status">Type of issue</label>
-                                <select class="form-select" aria-label="issueType select" name="issue[issueType]">
-                                    <% for (let issueType of issueTypes ) { %> 
-                                    <option value="<%= issueType %>"><%= issueType %> </option>
-                                    <% } %> 
-        
-                                  </select>
-        
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-success" id="buttonSaveissue">Save issue</button>
-                            </div>
-                            </form>
-                    </div>
+
+        <div class="modal fade" id="issueModal" tabindex="-1" aria-labelledby="issueModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="issueModalLabel">Create new issue</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
+
+
+
+                    <form action="/projects/<%= project._id %>/issues" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateIssue">
+                        <div class="mb-3">
+                            <label class="form-label" for="title">Title of new issue</label>
+                            <input class="form-control" type="text" id="title" name="issue[title]" required>
+                                
+    
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="description">Description of new issue</label>
+                            <textarea class="form-control" type="text" id="description" name="issue[description]" required>
+                                </textarea>
+    
+                        </div>
+            
+                        <div class="mb-3">
+                            <label class="form-label" for="status">Status</label>
+                            <select class="form-select" aria-label="Status select" name="issue[status]">
+                                <% for (let status of statuses) { %> 
+                                <option value="<%= status %>"><%= status %> </option>
+                                <% } %> 
+    
+                              </select>
+    
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="status">Priority</label>
+                            <select class="form-select" aria-label="priority select" name="issue[priority]">
+                                <% for (let priority of priorities) { %> 
+                                <option value="<%= priority %>"><%= priority %> </option>
+                                <% } %> 
+    
+                              </select>
+    
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="status">Type of issue</label>
+                            <select class="form-select" aria-label="issueType select" name="issue[issueType]">
+                                <% for (let issueType of issueTypes ) { %> 
+                                <option value="<%= issueType %>"><%= issueType %> </option>
+                                <% } %> 
+    
+                            </select>
+    
+                        </div>
+                        <div class="mb-3">
+
+                            <label class="form-label" for="assignedUser">Role of the user</label>
+                            <select class="form-select" aria-label="userSelect" name="issue[assignedUser]">
+                                <% for (let user of project.assignedUsers ) { %> 
+                                <option value="<%= user._id %>"><%= user.email %> </option>
+                                <% } %> 
+
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-success" id="buttonSaveissue">Save issue</button>
+                        </div>
+                        </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCloseNewIssue">Close</button>
+
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
 
 
 
 
-        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-dark table-striped table-bordered table-sm table-responsive ">
+
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive ">
             <thead>
             <tr>
                 <th data-sortable="true" >ID</th>
@@ -135,7 +161,56 @@
 
     <div class="col-md-4 border">
         <h3>Assigned team</h3>
-        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-dark table-striped table-bordered table-sm table-responsive w-auto">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignUserModal">
+            Assign user
+        </button>
+
+
+        <div class="modal fade" id="assignUserModal" tabindex="-1" aria-labelledby="assignUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="assignUserModalLabel">Assign user</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <form action="/projects/<%= project._id %>/team" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formAssignUser">
+                        <div class="mb-3">
+                            <label class="form-label" for="email">E-mail of the user</label>
+                            <input class="form-control" type="text" id="emailAssignedUser" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="role">Role of the user</label>
+                            <select class="form-select" aria-label="roleSelect" name="role">
+                                <% for (let role of roles ) { %> 
+                                <option value="<%= role %>"><%= role %> </option>
+                                <% } %> 
+    
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="buttonAssignUser">Assign user</button>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCloseAssignUser">Close</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive">
             <thead>
             <tr>
                 <th data-sortable="true">Username</th>
@@ -144,24 +219,17 @@
                 
             </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody class="table-group-divider" id="tableAssignedUsers">
             
 
-                <tr>
-                    <td>Developer #1</td>
-                    <td>dev1@sbt.com</td>
-                    <td>Developer</td>
-                </tr>
-                <tr>
-                    <td>Tester #1</td>
-                    <td>tester1@sbt.com</td>
-                    <td>Developer</td>
-                </tr>
-                <tr>
-                    <td>Project manager #1</td>
-                    <td>pm1@sbt.com</td>
-                    <td>Project manager</td>
-                </tr>
+                <% for (let assignedUser of project.assignedUsers) {%> 
+                    <tr>
+
+                        <td><%= assignedUser.username %> </td>
+                        <td><%= assignedUser.email  %> </td>
+                        <td><%= assignedUser.role  %> </td>
+                    </tr>
+                        <% } %> 
 
             
             </tbody>
@@ -176,9 +244,12 @@
   
   </script>
 
+    <script src="/js/assignUser.js"></script>
   <script src="/js/createIssue.js"></script>
   <% if (currentUser.equals(project.author)) {%> 
   <script src="/js/editProject.js"></script>
+  
+
   <% } %> 
 
 

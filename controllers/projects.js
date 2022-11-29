@@ -1,5 +1,7 @@
 const Project = require ("../models/project");
 const Issue = require ("../models/issue");
+const User = require ("../models/user");
+
 
 module.exports.index = async (req, res) => {
     const projects = await Project
@@ -24,13 +26,15 @@ module.exports.showProject = async (req, res) => {
 
   const project = await Project.findById(req.params.projectId)
     .populate({path: "issues"})
+    .populate({path : "assignedUsers"})
   // console.log (req.body.project);
   const statuses = Issue.schema.path('status').enumValues;
   const priorities = Issue.schema.path('priority').enumValues;
   const issueTypes = Issue.schema.path('issueType').enumValues;
+  const roles = User.schema.path('role').enumValues;
 
 
-  res.render ("projects/show", {project, statuses,priorities,issueTypes });
+  res.render ("projects/show", {project, statuses,priorities,issueTypes, roles});
 }
 
 

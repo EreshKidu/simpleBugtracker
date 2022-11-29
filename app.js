@@ -51,6 +51,7 @@ const projectRoutes = require('./routes/projects');
 const issueRoutes = require('./routes/issues');
 const commentRoutes = require('./routes/comments');
 const userRoutes = require('./routes/user');
+const projectTeamRoutes = require('./routes/projectTeam');
 
 const secret = process.env.SECRET || 'verybadsecret';
 const sessionConfig = {
@@ -82,7 +83,10 @@ app.use ((req, res, next) => {
 
 app.use (`/projects`, projectRoutes);
 app.use  (`/projects/:projectId/issues`, issueRoutes);
+app.use  (`/projects/:projectId/team`, projectTeamRoutes);
 app.use  (`/projects/:projectId/issues/:issueId/comments`, commentRoutes);
+// app.use  (`/projects/:projectId/issues/:issueId/team`, issueTeamRoutes);
+
 app.use ('/', userRoutes);
 
 

@@ -26,8 +26,12 @@ module.exports.createIssue = async (req, res) => {
 
     const issue = await Issue.findById(req.params.issueId)
       .populate({path: "comments", options: { sort: {'createdAt': 'descending' } }})
+      .populate({path : "assignedUser"})
+      .populate({path : "author"})
+      
 
     const project = await Project.findById(req.params.projectId)
+      .populate({path : "assignedUsers"})
 
     let issueHistory = await IssueHistory.find({"d._id" :  new mongoose.Types.ObjectId (req.params.issueId)});
     

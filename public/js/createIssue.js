@@ -29,14 +29,14 @@ formCreateIssue.addEventListener("submit", async function(e) {
     const drawIssue = (res) => {
 
          // clear and close form for new issue
-    const buttonNewIssue = document.querySelector ("#buttonNewIssue");
+    const buttonCloseNewIssue = document.querySelector ("#buttonCloseNewIssue");
     const descriptionNewIssue = document.querySelector ("#description");
     const titleNewIssue = document.querySelector ("#title");
 
 
     descriptionNewIssue.value = "";
     titleNewIssue.value = "";
-    buttonNewIssue.click();
+    buttonCloseNewIssue.click();
 
     // Find first row and insert new issue above that card
     const firstIssue = document.querySelector ("tbody");

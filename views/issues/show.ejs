@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h3 id="titleIssue"><%= issue.title %> </h3>
+        <h3 id="titleIssue" name="title"><%= issue.title %> </h3>
 
       </div>
 
@@ -36,18 +36,18 @@
 
                 <td>
                     <h5>Issue description</h2>
-                    <h6 id="descriptionIssue"><%= issue.description %> </h6>
+                    <h6 id="descriptionIssue" name="description"><%= issue.description %> </h6>
                 </td>
                 <td>
                     <h5>Created by:</h2>
-                    <h6>Author </h3>
+                    <h6><%= issue.author.email %>  </h3>
                 </td>
               </tr>
               <tr>
 
                 <td>
                     <h5>Status</h2>
-                      <select class="form-select" aria-label="Status select" name="issue[status]" id="selectStatus" disabled>
+                      <select class="form-select" aria-label="Status select" name="status" id="selectStatus" disabled>
                         <% for (let status of statuses) { %> 
                         <option value="<%= status %>" <% if (status==issue.status) {%> selected <% } %>  %> ><%= status %> </option>
                         <% } %> 
@@ -57,7 +57,7 @@
                 </td>
                 <td>
                     <h5>Priority</h2>
-                      <select class="form-select" aria-label="Priority select" name="issue[priority]" id="selectPriority" disabled>
+                      <select class="form-select" aria-label="Priority select" name="priority" id="selectPriority" disabled>
                         <% for (let priority of priorities) { %> 
                         <option value="<%= priority %>" <% if (priority==issue.priority) {%> selected <% } %>  %> ><%= priority %> </option>
                         <% } %> 
@@ -70,7 +70,7 @@
                 <td>
                     <h5>Issue type:</h2>
                       
-                      <select class="form-select" aria-label="Priority select" name="issue[issueType]" id="selectIssueType" disabled>
+                      <select class="form-select" aria-label="Priority select" name="issueType" id="selectIssueType" disabled>
                         <% for (let issueType of issueTypes) { %> 
                         <option value="<%= issueType %>" <% if (issueType==issue.issueType) {%> selected <% } %>  %> ><%= issueType %> </option>
                         <% } %> 
@@ -85,7 +85,12 @@
 
                 <td>
                     <h5>Assigned developer:</h2>
-                    <h6>Developer </h3>
+                      <select class="form-select" aria-label="Priority select" name="assignedUser" id="selectUser" disabled>
+                        <% for (let user of project.assignedUsers) { %> 
+                        <option value="<%= user._id %>" <% if (user==issue.assignedUser) {%> selected <% } %>  %> ><%= user.email %> </option>
+                        <% } %> 
+
+                    <h6><%= issue.assignedUser %>  </h3>
                 </td>
                 
                 <td>
@@ -115,6 +120,7 @@
             <button class="btn btn-info btn-sm" id="buttonUploadImage">Upload images</button>
           </form>
 
+          <% if (issue.images.length > 0) {%> 
           <h5>List of images</h5>
 
 
@@ -144,7 +150,7 @@
             </button>
           </div>
 
-
+          <% } %> 
 
 
 
@@ -154,7 +160,7 @@
 
           <h3>History</h3>
 
-          <table class="table-dark table-striped table-bordered table-sm table-responsive">
+          <table class="table-striped table-bordered table-sm table-responsive">
             <thead>
                 <th>Action</th>
                 <th>Made by:</th>

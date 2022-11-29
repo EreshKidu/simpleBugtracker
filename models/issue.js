@@ -40,6 +40,11 @@ const IssueSchema = new Schema( {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    
+    assignedUser: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 
 },
 { timestamps: true });
