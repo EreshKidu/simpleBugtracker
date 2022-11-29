@@ -13,7 +13,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
     //   });
     // issue.append("projectID", project._id);
 
-    // console.log ([...issue]);
+    console.log ([...issue]);
     
     // Send data from form
     let res = await axios.post(`/projects/${projectId}/issues`, issue);
@@ -55,3 +55,46 @@ formCreateIssue.addEventListener("submit", async function(e) {
 
     `);
     }
+
+
+const buttonCreateIssue = document.querySelector ("#buttonCreateIssue");
+
+
+buttonCreateIssue.addEventListener("click", async function(e) {
+    
+    // Get data from form
+    // let issue = new FormData(formCreateIssue);
+    // let blob = new Blob([project], {
+    //     type: 'application/json'
+    //   });
+    // issue.append("projectID", project._id);
+
+    // console.log ([...issue]);
+    
+    // Get assigned users from database
+    let users = await axios.get(`/projects/${projectId}/team`);
+    users = users.data;
+    console.log (users);
+
+    const userSelect = document.querySelector ("#userSelect");
+    while (userSelect.firstChild) {
+        userSelect.removeChild(userSelect.firstChild);
+      }
+
+    for (let user of users) {
+        userSelect.insertAdjacentHTML('afterbegin', `
+
+        
+            <option value="${user._id}">${user.email}</option>
+            
+    
+    `);
+    }
+
+    
+    //draw new issue from database
+
+    
+
+
+    })

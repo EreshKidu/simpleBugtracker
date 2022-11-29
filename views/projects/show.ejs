@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h1 id="titleProject"><%= project.title %> </h1>
+        <h1 id="titleProject" name="title"><%= project.title %> </h1>
     </div>
 
     <% if (currentUser.equals(project.author)) {%> 
@@ -25,7 +25,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <h5 id="descriptionProject"><%= project.description %> </h5>
+        <h5 id="descriptionProject" name="description"><%= project.description %> </h5>
 
     </div>
 </div>
@@ -35,7 +35,7 @@
     <div class="col-md-8 border">
         <h3>Issues</h3>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#issueModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#issueModal" id="buttonCreateIssue">
             Create new issue
         </button>
 
@@ -101,8 +101,9 @@
                         <div class="mb-3">
 
                             <label class="form-label" for="assignedUser">Role of the user</label>
-                            <select class="form-select" aria-label="userSelect" name="issue[assignedUser]">
-                                <% for (let user of project.assignedUsers ) { %> 
+                            <select class="form-select" id="userSelect" aria-label="userSelect" name="issue[assignedUser]" >
+
+                                <%  for (let user of project.assignedUsers ) { %> 
                                 <option value="<%= user._id %>"><%= user.email %> </option>
                                 <% } %> 
 
@@ -129,7 +130,7 @@
 
 
 
-        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive ">
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive">
             <thead>
             <tr>
                 <th data-sortable="true" >ID</th>
@@ -147,7 +148,7 @@
                 <tr>
                     <td><a href="/projects/<%= project._id %>/issues/<%= issue._id %>"><%= issue._id %> </a> </td>
                     <td class="" ><%= issue.title %></td>
-                    <td><%= issue.createdAt.toDateString() %> </td>
+                    <td><%= issue.createdAt.toLocaleString() %> </td>
                     <td><%= issue.status %> </td>
                     <td><%= issue.priority  %> </td>
                     <td><%= issue.issueType  %> </td>
@@ -161,7 +162,7 @@
 
     <div class="col-md-4 border">
         <h3>Assigned team</h3>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignUserModal">
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#assignUserModal">
             Assign user
         </button>
 
@@ -210,12 +211,13 @@
 
 
 
-        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive">
+        <table data-toggle="table"  data-search="true" class="table-striped table-bordered table-sm table-responsive">
             <thead>
             <tr>
                 <th data-sortable="true">Username</th>
                 <th data-sortable="true">E-mail</th>
                 <th data-sortable="true">Role</th>
+                <th data-sortable="false"></th>
                 
             </tr>
             </thead>
@@ -223,13 +225,18 @@
             
 
                 <% for (let assignedUser of project.assignedUsers) {%> 
-                    <tr>
+                    <tr id="user<%= assignedUser._id  %>">
 
                         <td><%= assignedUser.username %> </td>
                         <td><%= assignedUser.email  %> </td>
                         <td><%= assignedUser.role  %> </td>
+                        <td>
+                            
+                            <button class="btn btn-danger btn-sm" id="buttonDeleteIssue" onclick="deleteUser('<%= assignedUser._id  %>')">X</button>
+                            
+                        </td>
                     </tr>
-                        <% } %> 
+                <% } %> 
 
             
             </tbody>
@@ -244,10 +251,14 @@
   
   </script>
 
-    <script src="/js/assignUser.js"></script>
+   
   <script src="/js/createIssue.js"></script>
+  <script src="/js/assignUser.js"></script>
+  <script src="/js/deleteAssignedUser.js"></script>
+
   <% if (currentUser.equals(project.author)) {%> 
   <script src="/js/editProject.js"></script>
+  
   
 
   <% } %> 

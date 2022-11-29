@@ -11,4 +11,8 @@ router.route('/')
 .get(projectTeam.index)
 .post(upload.none(),projectTeam.assignUser)
 
+
+router.route('/:userId')
+.delete(projectTeam.deleteUser)
+
 module.exports = router;

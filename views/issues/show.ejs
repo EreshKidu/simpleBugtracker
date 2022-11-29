@@ -87,7 +87,7 @@
                     <h5>Assigned developer:</h2>
                       <select class="form-select" aria-label="Priority select" name="assignedUser" id="selectUser" disabled>
                         <% for (let user of project.assignedUsers) { %> 
-                        <option value="<%= user._id %>" <% if (user==issue.assignedUser) {%> selected <% } %>  %> ><%= user.email %> </option>
+                        <option value="<%= user._id %>" <% if (user.equals(issue.assignedUser)) {%> selected <% } %>  %> ><%= user.email %> </option>
                         <% } %> 
 
                     <h6><%= issue.assignedUser %>  </h3>

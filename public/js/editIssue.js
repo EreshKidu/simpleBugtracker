@@ -1,15 +1,16 @@
 
-const toggleEditable = (obj) => {
+const toggleEditable = (objects) => {
+    for (let object of objects) {
+        if (object.nodeName == 'SELECT') {
+            object.toggleAttribute('disabled');
 
-    if (obj.nodeName == 'SELECT') {
-        obj.toggleAttribute('disabled');
+        } else {
+            object.toggleAttribute('contenteditable');
 
-    } else {
-        obj.toggleAttribute('contenteditable');
-
+        }
+        object.classList.toggle('border');
+        object.classList.toggle('border-info');
     }
-    obj.classList.toggle('border');
-    obj.classList.toggle('border-info');
 
 }
 
@@ -26,18 +27,33 @@ const readIssueInfo = (objects) => {
     
         }
     }
-    console.log (currentIssueInfo);
+    //Create object from array
     let result = Object.fromEntries(currentIssueInfo);
     return result;
+}
+
+const revertIssueInfo = (objects) => {
+    for (let object of objects) {
+        objName = object.getAttribute('name');
+        
+        if (object.nodeName == 'SELECT') {
+            object.value = issueInfoInitial[objName];
+    
+        } else {
+            object.innerText = issueInfoInitial[objName];
+            
+    
+        }
+    }
 }
 
 
 const editIssue = async (e) => {
     // Find title and descrition and make it editable
 
-    for (let info of issueInfoObjects) {
-        toggleEditable (info)
-    }
+
+    toggleEditable (issueInfoObjects);
+
 
     // Hide Edit button, add enable cancel button and Save button to the left of all buttons
 
@@ -61,7 +77,7 @@ const selectUser = document.querySelector ("#selectUser");
 
 const issueInfoObjects = [titleIssue, descriptionIssue, selectStatus, selectPriority, selectIssueType, selectUser];
 let issueInfoInitial = readIssueInfo (issueInfoObjects);
-console.log (issueInfoInitial);
+
 
 
 
@@ -75,29 +91,13 @@ buttonEditIssue.addEventListener("click", editIssue);
 const saveIssue = async (e) => {
 
     //Read new title and description
-    const editedDescription = descriptionIssue.innerText;
-    const editedTitle = titleIssue.innerText;
-    const editedIssueType = selectIssueType.value; 
-    const editedPriority = selectPriority.value;
-    const editedStatus = selectStatus.value ;
-    const editedUser = selectUser.value ;
 
+    const editedIssue = readIssueInfo (issueInfoObjects);
 
-    const editedIssue = {
-        title: editedTitle,
-        description: editedDescription,
-        status: editedStatus,
-        priority: editedPriority,
-        issueType: editedIssueType,
-        assignedUser: editedUser
-    }
 
     let res = await axios.put(`/projects/${projectId}/issues/${issueId}`, editedIssue);
 
-    for (let info of issueInfoObjects) {
-        toggleEditable (info)
-    }
-
+    toggleEditable (issueInfoObjects);
 
     buttonSaveEdit.classList.add ("d-none");
     buttonCancelEdit.classList.add ("d-none");
@@ -110,10 +110,10 @@ const saveIssue = async (e) => {
 
 
 const cancelEdit = () => {
+    
+    revertIssueInfo (issueInfoObjects);
+    toggleEditable (issueInfoObjects);
 
-    for (let info of issueInfoObjects) {
-        toggleEditable (info)
-    }
     buttonSaveEdit.classList.add ("d-none");
     buttonCancelEdit.classList.add ("d-none");
     buttonEditIssue.classList.remove ("d-none");

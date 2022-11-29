@@ -38,11 +38,17 @@ formAssignUser.addEventListener("submit", async function(e) {
     const assignedUser = res.data;
     
     firstIssue.insertAdjacentHTML('afterbegin', `
-        <tr>
+        <tr id="user${assignedUser._id}">
 
             <td>${assignedUser.username} </td>
             <td>${assignedUser.email } </td>
             <td>${assignedUser.role } </td>
+            <td>
+                            
+            <button class="btn btn-danger btn-sm" id="buttonDeleteIssue" onclick="deleteUser('${assignedUser._id}')">X</button>
+            
+        </td>
+
         </tr>
 
     `);

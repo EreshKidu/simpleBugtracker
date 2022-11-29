@@ -1,61 +1,100 @@
 <% layout('layouts/mainLayout') %> 
-<div id="liveAlertPlaceholder"></div>
-<h1>Projects</h1>
 
-<% if (currentUser) { %>
-<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewProject" aria-expanded="false" aria-controls="collapseNewProject" id="buttonNewProject">
-    Create new project
-  </button>
+<div class="row justify-content-center align-items-center">
 
-<div class="mb-3 collapse" id="collapseNewProject">
-    <div class="row">
-       <div class="col-md-6">
-            <div class="card-body">
-                <form action="/projects" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateProject">
-                    <div class="mb-3">
-                        <label class="form-label" for="title">Title of new project</label>
-                        <input class="form-control" type="text" id="title" name="project[title]" required>
-                        <div class="valid-feedback">
-                            Looks good!
+    <div class="col-md-8 border">
+        <div id="liveAlertPlaceholder"></div>
+        <h1>Projects</h1>
+      
+        <% if (currentUser) { %>
+
+
+
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#projectModal">
+              Create new project
+          </button>
+          
+          
+          <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="projectModalLabel">Create new project</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+          
+          
+          
+                      <form action="/projects" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateProject">
+                          <div class="mb-3">
+                              <label class="form-label" for="title">Title of new project</label>
+                              <input class="form-control" type="text" id="title" name="project[title]" required>
+                              <div class="valid-feedback">
+                                  Looks good!
+                                </div>
                           </div>
-                    </div>
-        
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
-                        <input class="form-control" type="text"  id="description" name="project[description]" required>
-                        <div class="valid-feedback">
-                            Looks good!
+              
+                          <div class="mb-3">
+                              <label class="form-label" for="description">Description</label>
+                              <input class="form-control" type="text"  id="description" name="project[description]" required>
+                              <div class="valid-feedback">
+                                  Looks good!
+                                </div>
                           </div>
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-success" id="buttonSaveProject">Save project</button>
-                    </div>
-                    </form>
+                          <div class="mb-3">
+                              <button class="btn btn-success" id="buttonSaveProject">Save project</button>
+                          </div>
+                          </form>
+          
+          
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCloseNewProject">Close</button>
+          
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          
+          
+          
+          <% } %> 
+
+
+
+
+        <table data-toggle="table" data-pagination="true"  data-search="true" class="table-striped table-bordered table-sm table-responsive ">
+            <thead>
+            <tr>
+                <th data-sortable="true" >ID</th>
+                <th data-sortable="true" >Title</th>
+                <th data-sortable="true" >Description </th>
+                <th data-sortable="true" >Creation date</th>
+
+                
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            
+                <% for (let project of projects) {%> 
+                <tr>
+                    <td><a href="/projects/<%= project._id %>"><%= project._id %> </a> </td>
+                    <td class="" ><%= project.title %></td>
+                    <td class="" ><%= project.description %></td>
+                    <td><%= project.createdAt.toLocaleString() %> </td>
+
+                </tr>
+                    <% } %> 
+            
+            </tbody>
+        </table> 
+
+
+
     </div>
 </div>
 
-<% } %> 
-
-<div id="cards">
-    <% for (let project of projects) { %> 
-        <div class="card mb-3" id="card">
-            <div class="row">
-            <div class="col-md-6">
-                    <div class="card-body">
-                        <h5 class="card-title"> <a href="/projects/<%= project._id %>"><%= project.title %></a> </h5>
-                        <p class="card-text"><%= project.description %></p>
-                        <p class="card-text">
-                            <small class="text-muted"><%= project.createdAt.toDateString() %></small>
-                        </p>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% } %> 
-</div>
 
 <% if (currentUser) {%> 
 <script src="/js/createProject.js"></script>
