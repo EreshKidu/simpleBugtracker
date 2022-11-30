@@ -26,7 +26,7 @@ const drawProject = (res) => {
         <tr>
             <td><a href="/projects/${project._id}">${project._id} </a> </td>
             <td class="" >${project.title}</td>
-            <td class="" >${project.description}</td>
+            <td class="" >${project.author.email}</td>
             <td>${createdData.toLocaleString() }</td>
 
         </tr>
@@ -35,12 +35,12 @@ const drawProject = (res) => {
 
 }
 
-formCreateProject.addEventListener("submit", async function(e) {
+// formCreateProject.addEventListener("submit", async function(e) {
+const createProject = async (e) => {
     e.preventDefault();
     // Get data from form
     let project = new FormData(formCreateProject);
-    console.log ([...project]);
-
+ 
     // Send data from form
     let res = await axios.post(`/projects`, project);
     
@@ -74,7 +74,7 @@ formCreateProject.addEventListener("submit", async function(e) {
 
 
 
-    })
+    }
 
-    
+
 

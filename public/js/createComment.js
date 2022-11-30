@@ -21,7 +21,7 @@ const drawComment = (res) => {
             <div class="card mb-3" id="commentCard">
             <div class="card-body">
             <h5 class="card-title">
-                Author on ${createdData.toLocaleString()} 
+                ${userEmail} on ${createdData.toLocaleString()} 
                 
             </h5>
             <p class="card-text">${comment.body}</p>

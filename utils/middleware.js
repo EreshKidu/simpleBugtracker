@@ -41,3 +41,19 @@ module.exports.isAuthor =  async (req, res, next) => {
     }
     next ();
 }
+
+
+module.exports.isAssigned =  async (req, res, next) => {
+
+    const {projectId} = req.params;
+
+    const project = await Project.findById(projectId);
+
+
+    if (!project.assignedUsers.includes(req.user._id)){
+        return res.send("Something went wrong");
+    }
+    
+    
+    next ();
+}

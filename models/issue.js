@@ -9,6 +9,12 @@ const ImageSchema = new Schema( {
     url: String,
     filename: String
 })
+ImageSchema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload', '/upload/h_250,c_scale');
+
+})
+
+
 
 const IssueSchema = new Schema( {
     title: String,
@@ -48,6 +54,8 @@ const IssueSchema = new Schema( {
 
 },
 { timestamps: true });
+
+
 
 IssueSchema.plugin(mongooseHistory);
 

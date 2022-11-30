@@ -4,7 +4,8 @@
 const formCreateIssue = document.querySelector ("#formCreateIssue");
 
 
-formCreateIssue.addEventListener("submit", async function(e) {
+// formCreateIssue.addEventListener("submit", async function(e) {
+    const createIssue = async (e) => {
     e.preventDefault();
     // Get data from form
     let issue = new FormData(formCreateIssue);
@@ -13,7 +14,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
     //   });
     // issue.append("projectID", project._id);
 
-    console.log ([...issue]);
+
     
     // Send data from form
     let res = await axios.post(`/projects/${projectId}/issues`, issue);
@@ -23,7 +24,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
     
 
 
-    })
+    }
 
 
     const drawIssue = (res) => {
@@ -46,7 +47,7 @@ formCreateIssue.addEventListener("submit", async function(e) {
     firstIssue.insertAdjacentHTML('afterbegin', `
         <tr>
         <td><a href="/projects/${projectId}/issues/${issue._id}">${issue._id}</a></td>
-        <td>${issue.description}</td>
+        <td>${issue.title}</td>
         <td>${createdDate.toDateString()}</td>
         <td>${issue.status}</td>
         <td>${issue.priority }</td>

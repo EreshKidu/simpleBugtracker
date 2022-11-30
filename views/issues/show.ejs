@@ -1,34 +1,40 @@
 <% layout('layouts/mainLayout') %> 
 
 
-<div class="row">
-    <div class="col-md-8">
-        <h3 id="titleIssue" name="title"><%= issue.title %> </h3>
-
-      </div>
-
-      <% if (currentUser.equals(issue.author)) {%> 
-
-      <div class="col-md-4 text-end" id="buttonsIssue">
-        <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
-        <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
-        <button class="btn btn-info" id="buttonEditIssue">Edit issue</button>
-        <form
-        class="d-inline"
-        action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=DELETE"
-        method="POST"
-      >
-        <button class="btn btn-danger" id="buttonDeleteIssue">Delete Issue</button>
-        </form>
-    
-    </div>
-    <% } %> 
-
-
-</div>
 
 <div class="row">
   <div class="col-md-8">
+
+    <div class="row">
+      <div class="col-md-8">
+        <h3 id="titleIssue" name="title"><%= issue.title %> </h3>
+  
+      </div>
+  
+      <% if (currentUser.equals(issue.author)) {%> 
+  
+      <div class="col-md-4 text-end" id="buttonsIssue">
+          <button class="btn btn-success d-none" id="buttonSaveEdit">Save edit</button>
+          <button class="btn btn-secondary d-none" id="buttonCancelEdit">Cancel edit</button>
+          <button class="btn btn-info" id="buttonEditIssue">Edit issue</button>
+          <form
+          class="d-inline"
+          action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger" id="buttonDeleteIssue">Delete Issue</button>
+          </form>
+    
+      </div>
+    <% } %> 
+
+    </div>
+
+
+
+
+
+
         <table class="table table-bordered">
 
             <tbody>
@@ -90,7 +96,6 @@
                         <option value="<%= user._id %>" <% if (user.equals(issue.assignedUser)) {%> selected <% } %>  %> ><%= user.email %> </option>
                         <% } %> 
 
-                    <h6><%= issue.assignedUser %>  </h3>
                 </td>
                 
                 <td>
@@ -109,7 +114,8 @@
             class="d-inline"
             action="/projects/<%= project._id %>/issues/<%= issue._id %>?_method=PUT"
             method="POST"
-            enctype="multipart/form-data"
+            enctype="multipart/form-data" 
+            id="formUploadImages"
             >
 
             
@@ -120,21 +126,18 @@
             <button class="btn btn-info btn-sm" id="buttonUploadImage">Upload images</button>
           </form>
 
-          <% if (issue.images.length > 0) {%> 
+          
           <h5>List of images</h5>
 
 
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner">
+
+            <div class="carousel-inner" id="carouselImages">
               <% for (let i =0; i < issue.images.length; i++) {%> 
               <div class="carousel-item <% if (i==0) {%>  active <% } %> ">
   
-                <a href="/uploads/<%= issue.images[i].filename %>" data-toggle="lightbox"> 
-                  <img src="/uploads/<%= issue.images[i].filename %> " class="d-block w-50 h-50 mx-auto img-fluid" alt="...">
+                <a href="<%= issue.images[i].url %>" data-toggle="lightbox"> 
+                  <img src="<%= issue.images[i].thumbnail %> " class="d-block w-50 h-50 mx-auto img-fluid" alt="...">
                 </a>
               </div>
               <% } %> 
@@ -150,7 +153,7 @@
             </button>
           </div>
 
-          <% } %> 
+          
 
 
 
@@ -160,7 +163,7 @@
 
           <h3>History</h3>
 
-          <table class="table-striped table-bordered table-sm table-responsive">
+          <table class="table-striped table-bordered table-sm table-responsive" data-pagination="true">
             <thead>
                 <th>Action</th>
                 <th>Made by:</th>
@@ -202,7 +205,7 @@
             <div class="card mb-3" id="comment<%= comment._id %>">
               <div class="card-body">
                 <h5 class="card-title">
-                  Author on <%= comment.createdAt.toLocaleString() %> 
+                  <%= comment.author.email %>  on <%= comment.createdAt.toLocaleString() %> 
                   
                 </h5>
                 <p class="card-text" id="textComment"><%= comment.body %></p>
@@ -241,11 +244,15 @@
     
     const projectId = <%- JSON.stringify(project._id)  %>;
     const issueId = <%- JSON.stringify(issue._id)  %>;
+    const userEmail = <%- JSON.stringify(currentUser.email)  %>;
+
 
   
 </script>
 <script src="/js/createComment.js"> </script>
 <script src="/js/deleteComment.js"> </script>
+<script src="/js/uploadImages.js"></script>
+
 
 <% if (currentUser.equals(issue.author)) {%> 
 

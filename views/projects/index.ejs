@@ -26,13 +26,16 @@
           
           
           
-                      <form action="/projects" method="POST" novalidate class="validated-form" enctype="multipart/form-data" id="formCreateProject">
+                      <form action="/projects" method="POST" novalidate class="needs-validation" enctype="multipart/form-data" id="formCreateProject">
                           <div class="mb-3">
                               <label class="form-label" for="title">Title of new project</label>
                               <input class="form-control" type="text" id="title" name="project[title]" required>
                               <div class="valid-feedback">
                                   Looks good!
                                 </div>
+                                <div class="invalid-feedback">
+                                    Please provide project title.
+                                  </div>
                           </div>
               
                           <div class="mb-3">
@@ -41,9 +44,12 @@
                               <div class="valid-feedback">
                                   Looks good!
                                 </div>
+                                <div class="invalid-feedback">
+                                    Please provide project description.
+                                </div>
                           </div>
                           <div class="mb-3">
-                              <button class="btn btn-success" id="buttonSaveProject">Save project</button>
+                              <button class="btn btn-success" id="buttonSaveProject" type="submit">Save project</button>
                           </div>
                           </form>
           
@@ -69,7 +75,7 @@
             <tr>
                 <th data-sortable="true" >ID</th>
                 <th data-sortable="true" >Title</th>
-                <th data-sortable="true" >Description </th>
+                <th data-sortable="true" >Author </th>
                 <th data-sortable="true" >Creation date</th>
 
                 
@@ -81,7 +87,7 @@
                 <tr>
                     <td><a href="/projects/<%= project._id %>"><%= project._id %> </a> </td>
                     <td class="" ><%= project.title %></td>
-                    <td class="" ><%= project.description %></td>
+                    <td class="" ><%= project.author.email %></td>
                     <td><%= project.createdAt.toLocaleString() %> </td>
 
                 </tr>
@@ -96,6 +102,5 @@
 </div>
 
 
-<% if (currentUser) {%> 
+<script src="/js/validateProjectForm.js"></script>
 <script src="/js/createProject.js"></script>
-<% } %> 

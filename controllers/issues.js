@@ -2,7 +2,7 @@ const Project = require ("../models/project");
 const Issue = require ("../models/issue");
 const IssueHistory = require ('../models/issueHistory');
 const mongoose = require('mongoose');
-
+const {cloudinary} = require("../cloudinary");
 
 
 module.exports.createIssue = async (req, res) => {
@@ -25,7 +25,12 @@ module.exports.createIssue = async (req, res) => {
   module.exports.showIssue = async (req, res) => {
 
     const issue = await Issue.findById(req.params.issueId)
-      .populate({path: "comments", options: { sort: {'createdAt': 'descending' } }})
+      .populate({path: "comments", 
+        options: { 
+          sort: {'createdAt': 'descending' } }, 
+        populate: {
+          path: 'author',
+      } })
       .populate({path : "assignedUser"})
       .populate({path : "author"})
       
@@ -33,7 +38,8 @@ module.exports.createIssue = async (req, res) => {
     const project = await Project.findById(req.params.projectId)
       .populate({path : "assignedUsers"})
 
-    let issueHistory = await IssueHistory.find({"d._id" :  new mongoose.Types.ObjectId (req.params.issueId)});
+    let issueHistory = await IssueHistory.find({"d._id" :  new mongoose.Types.ObjectId (req.params.issueId)})
+    .sort({ t: 'descending' });
     
 
     const statuses = Issue.schema.path('status').enumValues;
@@ -52,10 +58,12 @@ module.exports.createIssue = async (req, res) => {
     
 
     //req.body has edited issue
-    issue = Object.assign(issue, req.body);
 
     if (req.files) {
       issue.images = req.files.map (f => ({url: f.path, filename: f.filename}));
+
+    } else {
+      issue = Object.assign(issue, req.body);
 
     }
     
@@ -65,7 +73,8 @@ module.exports.createIssue = async (req, res) => {
     
 
     if (req.files){
-      res.redirect(`/projects/${req.params.projectId}/issues/${req.params.issueId}`)
+      // res.redirect(`/projects/${req.params.projectId}/issues/${req.params.issueId}`)
+      res.send (issue.images);
     }
   
     // const issue = await Issue.findByIdAndUpdate(
