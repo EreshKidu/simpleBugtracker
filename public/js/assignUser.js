@@ -1,5 +1,10 @@
 const formAssignUser = document.querySelector ("#formAssignUser");
 
+const makeInvalid = (obj) => {
+    obj.classList.add ("is-invalid") ;
+    
+}
+
 
 formAssignUser.addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -18,7 +23,12 @@ formAssignUser.addEventListener("submit", async function(e) {
 
     
     //draw new issue from database
-    renderAssignedUser (res);
+    if (res.data._id) {
+        renderAssignedUser (res);
+    } else {
+        makeInvalid (emailAssignedUser);
+    }
+    
     
 
     })

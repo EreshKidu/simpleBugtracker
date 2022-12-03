@@ -190,6 +190,9 @@
                         <div class="mb-3">
                             <label class="form-label" for="email">E-mail of the user</label>
                             <input class="form-control" type="text" id="emailAssignedUser" name="email" required>
+                            <div class="invalid-feedback">
+                                No such user. Ask user to register with this email.
+                            </div>   
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="role">Role of the user</label>
@@ -199,7 +202,9 @@
                                 <% } %> 
     
                             </select>
+
                         </div>
+ 
                         <button class="btn btn-primary" id="buttonAssignUser">Assign user</button>
                     </form>
 

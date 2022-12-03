@@ -3,6 +3,8 @@ const Project = require ('../models/project');
 const Issue = require ('../models/issue');
 const Comment = require ('../models/comment');
 
+
+
 const getRequestedObj = async (req) => {
     const {projectId, issueId, commentId} = req.params;
 
@@ -37,7 +39,7 @@ module.exports.isAuthor =  async (req, res, next) => {
     
 
     if (!obj.author.equals(req.user._id)){
-        return res.send("Something went wrong");
+        throw new ExpressError('You do not have an access', 400);
     }
     next ();
 }
@@ -51,7 +53,8 @@ module.exports.isAssigned =  async (req, res, next) => {
 
 
     if (!project.assignedUsers.includes(req.user._id)){
-        return res.send("Something went wrong");
+        throw new ExpressError('You do not have an access', 400);
+
     }
     
     

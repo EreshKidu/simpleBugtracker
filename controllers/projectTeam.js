@@ -15,13 +15,15 @@ module.exports.assignUser = async (req, res) => {
 
     const project = await Project.findById(req.params.projectId);
     let user = await User.findOne ({"email" : req.body.email});
-    user.role = req.body.role;
+    
 
 
     if (!user) {
         console.log ('NO USERS FOUND')
-        res.send ('User not found');
+        return res.send ('User not found');
     }
+
+    user.role = req.body.role;
 
     await user.save();
 
