@@ -30,6 +30,15 @@ module.exports.showRegister = (req, res) => {
     res.redirect(redirectUrl);
   }
 
+  module.exports.guestLogin = async (req, res) => {
+    const guestUser = await User.findOne({email: "guest@sbt.com"});
+    req.login(guestUser, (err) => {
+      if (err) return next(err);
+      res.redirect("/projects");
+    });
+  }
+
+
   module.exports.logout = (req, res) => {
     req.logout(function (err) {
       if (err) {

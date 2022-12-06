@@ -9,7 +9,9 @@ module.exports.index = async (req, res) => {
     .sort({ createdAt: 'descending' })
     .populate({path: "author"})
 
-    res.render("projects/index", {projects});
+    const pageName = 'projects';
+
+    res.render("projects/index", {projects, pageName});
    
   }
   
@@ -39,9 +41,10 @@ module.exports.showProject = async (req, res) => {
   const priorities = Issue.schema.path('priority').enumValues;
   const issueTypes = Issue.schema.path('issueType').enumValues;
   const roles = User.schema.path('role').enumValues;
+  const pageName = 'projects';
 
 
-  res.render ("projects/show", {project, statuses,priorities,issueTypes, roles});
+  res.render ("projects/show", {project, statuses,priorities,issueTypes, roles, pageName});
 }
 
 

@@ -91,6 +91,9 @@ app.use (`/projects`, projectRoutes);
 app.use  (`/projects/:projectId/issues`, issueRoutes);
 app.use  (`/projects/:projectId/team`, projectTeamRoutes);
 app.use  (`/projects/:projectId/issues/:issueId/comments`, commentRoutes);
+app.get ('/about', (req, res) => {
+    res.render ("about")
+})
 // app.use  (`/projects/:projectId/issues/:issueId/team`, issueTeamRoutes);
 
 app.use ('/', userRoutes);

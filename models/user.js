@@ -4,11 +4,7 @@ const Schema = mongoose.Schema;
 const findOrCreate = require("mongoose-findorcreate");
 
 const UserSchema = new Schema ({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
+
     email: {
         type: String,
         required: true,
@@ -21,8 +17,7 @@ const UserSchema = new Schema ({
        },
     googleId: {
         type: String,
-        unique: true,
-        default: this._id
+        unique: false,
     },
 });
 

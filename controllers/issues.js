@@ -45,10 +45,11 @@ module.exports.createIssue = async (req, res) => {
     const statuses = Issue.schema.path('status').enumValues;
     const priorities = Issue.schema.path('priority').enumValues;
     const issueTypes = Issue.schema.path('issueType').enumValues;
+    const pageName = 'about';
 
 
   
-    res.render ("issues/show", {issue, project,statuses,priorities,issueTypes, issueHistory});
+    res.render ("issues/show", {issue, project,statuses,priorities,issueTypes, issueHistory, pageName});
   }
 
   module.exports.editIssue= async (req, res) => {

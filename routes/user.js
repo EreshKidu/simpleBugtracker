@@ -58,29 +58,7 @@ passport.use(new GoogleStrategy({
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// passport.serializeUser( (user, done) => { 
-//   console.log(`\n--------> Serialize User:`)
-//   console.log(user)
-//    // The USER object is the "authenticated user" from the done() in authUser function.
-//    // serializeUser() will attach this user to "req.session.passport.user.{user}", so that it is tied to the session object for each session.  
 
-//   done(null, user.id)
-// } )
-
-
-// passport.deserializeUser( async (id, done) => {
-//       console.log("\n--------- Deserialized User:")
-//       console.log(id)
-//       // This is the {user} that was saved in req.session.passport.user.{user} in the serializationUser()
-//       // deserializeUser will attach this {user} to the "req.user.{user}", so that it can be used anywhere in the App.
-//       //  User.findOne({  $or: [{"googleId": id}, {"_id": id} ] }  , function(err, user) {
-//       const currentUser = await  User.findOne({  "googleId": id } );
-
-//       done(null, currentUser);
-    
-
-      
-//  }) 
 
 router.route("/register")
 .get(users.showRegister)
@@ -96,6 +74,9 @@ router.route("/login")
   }), users.login
   
 );
+
+router.route("/guestlogin")
+.get(users.guestLogin);
 
 router.get('/auth/google',
   passport.authenticate('google', { scope:
