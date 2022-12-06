@@ -5,18 +5,19 @@ module.exports.showRegister = (req, res) => {
   }
 
   module.exports.register = async (req, res, next) => {
-    try {
-      const { email, username, password } = req.body;
-      const user = new User({ email, username });
+    
+      const { email, password } = req.body;
+      console.log (email, password );
+      const user = new User({ email, username: email});
       const registeredUser = await User.register(user, password);
+      console.log ("!!!!!!!!!!!!!!!!!!!!!!!")
+      console.log (registeredUser);
+
       req.login(registeredUser, (err) => {
         if (err) return next(err);
         res.redirect("/projects");
       });
-    } catch (e) {
 
-      res.redirect("register");
-    }
   }
 
   module.exports.showLogin = (req, res) => {
@@ -34,6 +35,6 @@ module.exports.showRegister = (req, res) => {
       if (err) {
         return next(err);
       }
-      res.redirect("/projects");
+      res.redirect("/login");
     });
   }

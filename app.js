@@ -75,10 +75,10 @@ const sessionConfig = {
 app.use (session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 app.use ((req, res, next) => {
     console.log (req.query);
@@ -96,12 +96,6 @@ app.use  (`/projects/:projectId/issues/:issueId/comments`, commentRoutes);
 app.use ('/', userRoutes);
 
 
-
-
-app.get ('/', (req, res) => {
-    console.log (`Request time is ${req.requestTime}`);
-    res.render('dashboard')
-})
 
 
 app.all('*', (req, res, next) => {
