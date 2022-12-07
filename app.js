@@ -24,7 +24,7 @@ const favicon = require('serve-favicon');
 // const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
 const dbUrl = process.env.MONGODBURI;
 
-
+const MongoDBStore = require("connect-mongo");
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = dbUrl;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
