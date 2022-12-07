@@ -28,6 +28,12 @@ module.exports.showRegister = (req, res) => {
     res.render("users/login", {pageName});
   }
 
+  module.exports.showAbout = (req, res) => {
+    const pageName = 'about';
+
+    res.redirect("/about", {pageName});
+  }
+
   module.exports.login = (req, res) => {
     const redirectUrl = req.session.returnTo || "/projects";
     delete req.session.returnTo;

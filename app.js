@@ -18,7 +18,8 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const ExpressError = require('./utils/ExpressError');
 const helmet = require("helmet");
-
+const compression = require("compression");
+const favicon = require('serve-favicon');
 
 // const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
 const dbUrl = process.env.MONGODBURI;
@@ -85,6 +86,8 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false,
 
   }));
+app.use(compression());
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
 const projectRoutes = require('./routes/projects');
@@ -103,7 +106,12 @@ const sessionConfig = {
         httpOnly: true,
         expires: Date.now() + 1000* 60 * 60 *24*7,
         maxAge: 1000* 60 * 60 *24*7
-    }
+    },
+    store: MongoDBStore.create({
+        mongoUrl: dbUrl,
+        secret,
+        touchAfter: 24 * 60 * 60
+    })
 }
 
 app.use (session(sessionConfig));
