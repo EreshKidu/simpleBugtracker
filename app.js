@@ -17,7 +17,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const ExpressError = require('./utils/ExpressError');
-
+const helmet = require("helmet");
 
 
 const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
@@ -51,6 +51,28 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(morgan('dev'));
+app.use(helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "script-src": ["'self'", "cdn.jsdelivr.net", "unpkg.com", "'unsafe-inline'"],
+       "script-src-attr": ["'self'", "cdn.jsdelivr.net", "unpkg.com", "'unsafe-inline'"],
+       mediaSrc: ["https://res.cloudinary.com/"],
+      imgSrc: [
+        "'self'",
+        "blob:",
+        "data:",
+        "https://res.cloudinary.com/",
+        "https://images.unsplash.com/",
+      ],
+
+      },
+      
+
+    },
+    crossOriginEmbedderPolicy: false,
+
+  }));
 
 
 const projectRoutes = require('./routes/projects');
@@ -92,7 +114,8 @@ app.use  (`/projects/:projectId/issues`, issueRoutes);
 app.use  (`/projects/:projectId/team`, projectTeamRoutes);
 app.use  (`/projects/:projectId/issues/:issueId/comments`, commentRoutes);
 app.get ('/about', (req, res) => {
-    res.render ("about")
+    const pageName = 'about';
+    res.render ("about", {pageName})
 })
 // app.use  (`/projects/:projectId/issues/:issueId/team`, issueTeamRoutes);
 
