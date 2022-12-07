@@ -21,7 +21,7 @@ const helmet = require("helmet");
 
 
 // const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
-const dbUrl = "mongodb+srv://firstuser:0PE9oLLNBJfniA3s@cluster0.z5tdfcj.mongodb.net/?retryWrites=true&w=majority";
+const dbUrl = process.env.MONGODBURI;
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
