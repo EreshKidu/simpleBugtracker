@@ -31,20 +31,20 @@ module.exports.showRegister = (req, res) => {
   module.exports.showAbout = (req, res) => {
     const pageName = 'about';
 
-    res.redirect("/about", {pageName});
+    res.render("about", {pageName});
   }
 
   module.exports.login = (req, res) => {
     const redirectUrl = req.session.returnTo || "/projects";
     delete req.session.returnTo;
-    res.redirect(redirectUrl);
+    res.redirect(500,redirectUrl);
   }
 
   module.exports.guestLogin = async (req, res) => {
     const guestUser = await User.findOne({email: "guest@sbt.com"});
     req.login(guestUser, (err) => {
       if (err) return next(err);
-      res.redirect("/projects");
+      res.redirect(500, "/projects");
     });
   }
 
@@ -54,6 +54,6 @@ module.exports.showRegister = (req, res) => {
       if (err) {
         return next(err);
       }
-      res.redirect("/login");
+      res.redirect(500, "/login");
     });
   }

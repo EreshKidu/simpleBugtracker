@@ -41,8 +41,10 @@ mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     //useFindAndModify: false
     
+    
 
 });
+mongoose.set('strictQuery', false);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
