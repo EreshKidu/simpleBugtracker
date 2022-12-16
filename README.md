@@ -5,18 +5,25 @@ Live example: https://simplebugtracker.onrender.com/
 
 This is a personal project, which utilizes the following technologies:
 
-Backend - Node.js with Express web framework
-Database - MongoDB / mongoose
-HTML Templating - EJS
-Images storage - cloudinary
-HTML pretifier - bootstrap
-Authentication - passport
-Security - helmet
+- Backend - Node.js with Express web framework
+
+- Database - MongoDB / mongoose
+
+- HTML Templating - EJS
+
+- Images storage - cloudinary
+
+- HTML pretifier - bootstrap
+
+- Authentication - passport
+
+- Security - helmet
 
 
 In order to run this project locally you need:
 1) Install and start MongoDB 
-2) Create .env file in root of the project and add the following:
+2) Clone repo with git clone
+3) Create .env file in root of the project and add the following:
 
 CLOUDINARY_CLOUD_NAME = get personal code from dashboard at https://cloudinary.com/
 
@@ -32,7 +39,11 @@ SECRET= put any text like sfg845h3294202hfs
 
 MONGODBURI = mongodb://localhost:27017/simpleBugtracker
 
-3) Start the app:
+4) Install all dependencies with:
+
+npm i
+
+6) Start the app:
 
 node app.js
 
@@ -40,7 +51,7 @@ Should see:
 Serving on port 3000
 Database connected
 
-4) In the browser open 
+6) In the browser open 
 http://localhost:3000/
 
-5) Enjoy :)
+7) Enjoy :)
