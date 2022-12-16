@@ -20,8 +20,9 @@ const ExpressError = require('./utils/ExpressError');
 const helmet = require("helmet");
 const compression = require("compression");
 const favicon = require('serve-favicon');
+const flash = require('express-flash');
 
-// const dbUrl = 'mongodb://localhost:27017/simple-Bugtracker';
+// const dbUrl =  'mongodb://localhost:27017/simple-Bugtracker';
 const dbUrl = process.env.MONGODBURI;
 
 const MongoDBStore = require("connect-mongo");
@@ -127,6 +128,13 @@ app.use(passport.session());
 app.use ((req, res, next) => {
     console.log (req.query);
     res.locals.currentUser = req.user;
+    next();
+})
+
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     next();
 })
 

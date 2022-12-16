@@ -74,7 +74,8 @@ router.route("/login")
 .get( users.showLogin)
 .post(
     passport.authenticate("local", {
-    // failureFlash: true,
+    
+    failureFlash: true ,
     failureRedirect: "/login",
     keepSessionInfo: true
   }), users.login
