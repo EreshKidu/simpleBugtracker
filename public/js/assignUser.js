@@ -10,13 +10,6 @@ formAssignUser.addEventListener("submit", async function(e) {
     e.preventDefault();
     // Get data from form
     let assignedUser = new FormData(formAssignUser);
-    // console.log ([...assignedUser]);
-    // let blob = new Blob([project], {
-    //     type: 'application/json'
-    //   });
-    // issue.append("projectID", project._id);
-
-    // console.log ([...issue]);
     
     // Send data from form
     let res = await axios.post(`/projects/${projectId}/team`, assignedUser);
@@ -50,14 +43,14 @@ formAssignUser.addEventListener("submit", async function(e) {
     firstIssue.insertAdjacentHTML('afterbegin', `
         <tr id="user${assignedUser._id}">
 
-            <td>${assignedUser.username} </td>
+
             <td>${assignedUser.email } </td>
             <td>${assignedUser.role } </td>
             <td>
                             
             <button class="btn btn-danger btn-sm" id="buttonDeleteIssue" onclick="deleteUser('${assignedUser._id}')">X</button>
             
-        </td>
+            </td>
 
         </tr>
 
