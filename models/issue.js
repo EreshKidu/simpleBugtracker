@@ -19,11 +19,7 @@ ImageSchema.virtual('thumbnail').get(function() {
 const IssueSchema = new Schema( {
     title: String,
     description: String,
-    // createdAt: {
-    //     type: Date,
-    //     // `Date.now()` returns the current unix timestamp as a number
-    //     default: Date.now
-    //   },
+
     status: {
         type: String,
         enum: ['New', 'In progress', 'Closed']
@@ -59,7 +55,7 @@ const IssueSchema = new Schema( {
 
 IssueSchema.plugin(mongooseHistory);
 
-
+// Delete all comments inside issue
 IssueSchema.post('findOneAndDelete', async function(doc){
 
     if (doc) {

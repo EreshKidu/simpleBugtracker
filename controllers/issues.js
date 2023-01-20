@@ -74,33 +74,17 @@ module.exports.createIssue = async (req, res) => {
     
 
     if (req.files){
-      // res.redirect(`/projects/${req.params.projectId}/issues/${req.params.issueId}`)
+      
       res.send (issue.images);
     }
   
-    // const issue = await Issue.findByIdAndUpdate(
-    //   req.params.issueId,
-    //   req.body
-    // );
 
-
-
-
-    // if (req.body.deleteImages) {
-    //   for (let filename of req.body.deleteImages) {
-    //     await cloudinary.uploader.destroy(filename);
-    //   }
-    //   await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
-    //   console.log(campground);
-    // }
-  
-    // req.flash("success", "Successfuly updated campground!");
      res.send(issue);
   }
   
 
   module.exports.deleteIssue= async (req, res) => {
-    //const editedCampground = new Campground(req.body.campground);
+    
     await Issue.findByIdAndDelete(req.params.issueId);
     res.redirect(`/projects/${req.params.projectId}`);
   }

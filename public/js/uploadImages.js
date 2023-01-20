@@ -12,7 +12,7 @@ formUploadImages.addEventListener("submit", async function(e) {
 
     
 
-    console.log (res.data);
+    
     //draw new project from database
       drawImages (res.data);
     
@@ -29,7 +29,7 @@ const drawImages = (images) => {
       }
 
     let state="";
-    console.log (images);
+    
 
     for (let i =0; i < images.length; i++) {
         if (i===0) {

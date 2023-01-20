@@ -28,7 +28,7 @@ const ProjectSchema = new Schema( {
 
 ProjectSchema.plugin(mongooseHistory);
 
-
+//Delete all issues inside project
 ProjectSchema.post('findOneAndDelete', async function(doc){
 
     if (doc) {

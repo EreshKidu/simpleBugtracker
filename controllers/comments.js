@@ -25,7 +25,7 @@ module.exports.createComment = async (req, res) => {
 
 
 module.exports.deleteComment= async (req, res) => {
-  //const editedCampground = new Campground(req.body.campground);
+  
   await Comment.findByIdAndDelete(req.params.commentId);
   res.send(`Comment deleted`);
 }

@@ -18,7 +18,7 @@ module.exports.index = async (req, res) => {
 module.exports.createProject = async (req, res) => {
 
   
-  // console.log (req.body.project); 
+
   const newProject = new Project(req.body.project);
   newProject.author = req.user._id;
   // Add author automatically to assigned, so it can access it
@@ -36,7 +36,8 @@ module.exports.showProject = async (req, res) => {
     .populate({path: "issues"})
     .populate({path : "assignedUsers"})
     .populate({path: "author"})
-  // console.log (req.body.project);
+  
+  //Get enum values  from model
   const statuses = Issue.schema.path('status').enumValues;
   const priorities = Issue.schema.path('priority').enumValues;
   const issueTypes = Issue.schema.path('issueType').enumValues;
@@ -49,28 +50,19 @@ module.exports.showProject = async (req, res) => {
 
 
 module.exports.editProject= async (req, res) => {
-  //const editedCampground = new Campground(req.body.campground);
-
-
+  
   const project = await Project.findByIdAndUpdate(
     req.params.projectId,
     req.body
   );
-  // if (req.body.deleteImages) {
-  //   for (let filename of req.body.deleteImages) {
-  //     await cloudinary.uploader.destroy(filename);
-  //   }
-  //   await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}});
-  //   console.log(campground);
-  // }
 
-  // req.flash("success", "Successfuly updated campground!");
+
    res.send(project);
 }
 
 
 module.exports.deleteProject= async (req, res) => {
-  //const editedCampground = new Campground(req.body.campground);
+  
   await Project.findByIdAndDelete(req.params.projectId);
   res.redirect("/projects");
 }

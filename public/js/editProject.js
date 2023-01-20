@@ -93,6 +93,8 @@ const saveProject = async (e) => {
 
     let res = await axios.put(`/projects/${projectId}`, editedProject);
 
+    //revert editable and remove buttons
+
     toggleEditable (projectInfoObjects);
 
     buttonSaveEdit.classList.add ("d-none");

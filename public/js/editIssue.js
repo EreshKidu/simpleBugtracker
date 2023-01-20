@@ -49,13 +49,13 @@ const revertIssueInfo = (objects) => {
 
 
 const editIssue = async (e) => {
-    // Find title and descrition and make it editable
+    // Find title and description and make it editable
 
 
     toggleEditable (issueInfoObjects);
 
 
-    // Hide Edit button, add enable cancel button and Save button to the left of all buttons
+    // Hide Edit button, add cancel button and Save button to the left of all buttons
 
     buttonEditIssue.classList.add ("d-none");
     buttonSaveEdit.classList.remove ("d-none");

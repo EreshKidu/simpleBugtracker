@@ -26,7 +26,7 @@ UserSchema.plugin(passportLocalMongoose, {
     usernameUnique: true,
     
 });
-// UserSchema.plugin(findOrCreate);
+
 
 
 module.exports = mongoose.model ('User', UserSchema);
