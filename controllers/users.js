@@ -9,11 +9,10 @@ module.exports.showRegister = (req, res) => {
   module.exports.register = async (req, res, next) => {
     
       const { email, password } = req.body;
-      console.log (email, password );
+
       const user = new User({ email, username: email});
       const registeredUser = await User.register(user, password);
-      console.log ("!!!!!!!!!!!!!!!!!!!!!!!")
-      console.log (registeredUser);
+
 
       req.login(registeredUser, (err) => {
         if (err) return next(err);

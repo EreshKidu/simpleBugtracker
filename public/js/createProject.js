@@ -35,7 +35,7 @@ const drawProject = (res) => {
 
 }
 
-// formCreateProject.addEventListener("submit", async function(e) {
+
 const createProject = async (e) => {
     e.preventDefault();
     // Get data from form
